@@ -157,7 +157,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h> //3.5.1 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции
+/*#include <stdio.h> //3.5.1 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции
 
 int main() {
     unsigned char b, not_b;
@@ -168,8 +169,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h> //3.5.2 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции (Проверка на включенность
-байта)
+/*#include <stdio.h> //3.5.2 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции (Проверка на включенность байта)
 
 int main() {
     unsigned char bits, mask;
@@ -182,7 +183,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h> //3.5.3 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции (выключение бита)
+/*#include <stdio.h> //3.5.3 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции (выключение бита)
 
 int main() {
     unsigned char bits;
@@ -194,7 +196,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //3.5.4 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции (включение бита)
+/*#include <stdio.h>  //3.5.4 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции (включение бита)
 
 int main() {
     unsigned char bits, mask;
@@ -205,7 +208,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h> //3.5.5 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции (переключение бита)
+/*#include <stdio.h> //3.5.5 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции (переключение бита)
 
 int main() {
     unsigned char bits, mask;
@@ -216,7 +220,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h> //3.5.6 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции (сдвиг бита вправо)
+/*#include <stdio.h> //3.5.6 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции (сдвиг бита вправо)
 
 int main() {
     unsigned char number, number_2;
@@ -229,7 +234,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //3.5.7 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции (сдвиг бита влево)
+/*#include <stdio.h>  //3.5.7 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции (сдвиг бита влево)
 
 int main() {
     int number, number_2;
@@ -242,7 +248,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //3.5.8 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции
+/*#include <stdio.h>  //3.5.8 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции
 
 int main() {
     int number, number_2, res;
@@ -257,7 +264,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h> //3.5.9 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции
+/*#include <stdio.h> //3.5.9 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции
 
 int main() {
     unsigned char flags, mask;
@@ -272,7 +280,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //3.5.10 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые операции
+/*#include <stdio.h>  //3.5.10 Битовые операции И, ИЛИ, НЕ, XOR. Сдвиговые
+операции
 
 int main() {
     int flags, mask;
@@ -287,8 +296,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h> //3.6.1 Генерация псевдослучайных чисел. Математическая библиотека
-#include <stdlib.h>
+/*#include <stdio.h> //3.6.1 Генерация псевдослучайных чисел. Математическая
+библиотека #include <stdlib.h>
 
 int main() {
     int a = rand();
@@ -299,8 +308,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //3.6.2 Генерация псевдослучайных чисел. Математическая библиотека
-#include <stdlib.h>
+/*#include <stdio.h>  //3.6.2 Генерация псевдослучайных чисел. Математическая
+библиотека #include <stdlib.h>
 
 int main() {
     int N;
@@ -317,8 +326,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //3.6.3 Генерация псевдослучайных чисел. Математическая библиотека
-#include <stdlib.h>
+/*#include <stdio.h>  //3.6.3 Генерация псевдослучайных чисел. Математическая
+библиотека #include <stdlib.h>
 
 int main() {
     int a, b;
@@ -334,12 +343,12 @@ int main() {
     n8 = rand() % (b - a + 1) + a;
     n9 = rand() % (b - a + 1) + a;
     n10 = rand() % (b - a + 1) + a;
-    printf("%d %d %d %d %d %d %d %d %d %d", n1, n2, n3, n4, n5, n6, n7, n8, n9, n10);
-    return 0;
+    printf("%d %d %d %d %d %d %d %d %d %d", n1, n2, n3, n4, n5, n6, n7, n8, n9,
+n10); return 0;
 }*/
 
-/*#include <stdio.h>  //3.6.4 Генерация псевдослучайных чисел. Математическая библиотека
-#include <stdlib.h>
+/*#include <stdio.h>  //3.6.4 Генерация псевдослучайных чисел. Математическая
+библиотека #include <stdlib.h>
 // #define RAND_MAX 32767
 
 int main() {
@@ -356,14 +365,12 @@ int main() {
     n8 = (double)rand() / (double)RAND_MAX * (b - a) + a;
     n9 = (double)rand() / (double)RAND_MAX * (b - a) + a;
     n10 = (double)rand() / (double)RAND_MAX * (b - a) + a;
-    printf("%.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf", n1, n2, n3, n4, n5, n6, n7, n8, n9,
-           n10);
-    return 0;
+    printf("%.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf %.2lf", n1,
+n2, n3, n4, n5, n6, n7, n8, n9, n10); return 0;
 }*/
 
-/*#include <stdio.h> //3.6.5 Генерация псевдослучайных чисел. Математическая библиотека
-#include <stdlib.h>
-#include <time.h>
+/*#include <stdio.h> //3.6.5 Генерация псевдослучайных чисел. Математическая
+библиотека #include <stdlib.h> #include <time.h>
 
 int main() {
     int r1, r2, r3, r4, r5;
@@ -376,10 +383,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h> //3.6.6 Генерация псевдослучайных чисел. Математическая библиотека
-#include <math.h>
-#define A 100
-#define B 7
+/*#include <stdio.h> //3.6.6 Генерация псевдослучайных чисел. Математическая
+библиотека #include <math.h> #define A 100 #define B 7
 
 int main() {
     unsigned short N, day;
@@ -389,9 +394,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <math.h>  //3.6.7 Генерация псевдослучайных чисел. Математическая библиотека
-#include <stdio.h>
-#define D 2.54
+/*#include <math.h>  //3.6.7 Генерация псевдослучайных чисел. Математическая
+библиотека #include <stdio.h> #define D 2.54
 
 int main() {
     unsigned short N;
@@ -402,8 +406,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <math.h>  //3.6.8 Генерация псевдослучайных чисел. Математическая библиотека
-#include <stdio.h>
+/*#include <math.h>  //3.6.8 Генерация псевдослучайных чисел. Математическая
+библиотека #include <stdio.h>
 
 int main() {
     double rect, rect_rad, res;
@@ -418,8 +422,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <math.h>  //3.6.9 Генерация псевдослучайных чисел. Математическая библиотека
-#include <stdio.h>
+/*#include <math.h>  //3.6.9 Генерация псевдослучайных чисел. Математическая
+библиотека #include <stdio.h>
 
 int main() {
     int a, b;
@@ -489,8 +493,8 @@ int main() {
         return 1;
     }
     length = sqrt(pow(x, 2) + pow(y, 2));
-    length > MAX_LENGTH ? printf("Radius length exceeds value of MAX_LENGTH") : printf("%.2lf", length);
-    return 0;
+    length > MAX_LENGTH ? printf("Radius length exceeds value of MAX_LENGTH") :
+printf("%.2lf", length); return 0;
 }*/
 
 /*#include <stdio.h>  //3.7.5 Директивы макропроцессора #define и #undef
@@ -694,7 +698,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //4.1.9 Оператор цикла while (наибольший общий делитель (НОД) двух натуральных чисел)
+/*#include <stdio.h>  //4.1.9 Оператор цикла while (наибольший общий делитель
+(НОД) двух натуральных чисел)
 
 int main() {
     int a, b;
@@ -912,8 +917,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //4.3.4 Цикл do-while с постусловием. Вложенные циклы (Угадай число)
-#include <stdlib.h>
+/*#include <stdio.h>  //4.3.4 Цикл do-while с постусловием. Вложенные циклы
+(Угадай число) #include <stdlib.h>
 
 int main() {
     int x;
@@ -924,13 +929,9 @@ int main() {
         return 1;
     }
     do {
-        m = rand() % (b - a + 1) + a;  // генерация случайного числа в заданном диапозоне
-        if (m == x) {
-            printf("%d", x);
-        } else if (m < x) {
-            a = m;
-        } else {
-            b = m;
+        m = rand() % (b - a + 1) + a;  // генерация случайного числа в заданном
+диапозоне if (m == x) { printf("%d", x); } else if (m < x) { a = m; } else { b =
+m;
         }
     } while (m != x);
     return 0;
@@ -953,8 +954,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //4.3.6 Цикл do-while с постусловием. Вложенные циклы (СЛОЖНАЯ ЗАДАЧА ДО КОНЦА НЕ
-РАЗОБРАЛСЯ)
+/*#include <stdio.h>  //4.3.6 Цикл do-while с постусловием. Вложенные циклы
+(СЛОЖНАЯ ЗАДАЧА ДО КОНЦА НЕ РАЗОБРАЛСЯ)
 
 int main() {
     int n;
@@ -969,8 +970,8 @@ int main() {
         for (int j = 0; j < i; j++) {  // Выводим звезды
             printf("*");
         }
-        for (int j = 1; j < i; j++) {  // Печать второй половины звездочек (для симметрии)
-            printf("*");
+        for (int j = 1; j < i; j++) {  // Печать второй половины звездочек (для
+симметрии) printf("*");
         }
         printf("\n");
     }
@@ -990,7 +991,8 @@ int main() {
         number_1 = a % 10;
         number_2 = (a / 10) % 10;
         number_3 = a / 100;
-        if (number_1 != number_2 && number_1 != number_3 && number_2 != number_3) printf("%d ", a);
+        if (number_1 != number_2 && number_1 != number_3 && number_2 !=
+number_3) printf("%d ", a);
     }
     return 0;
 }*/
@@ -1343,7 +1345,8 @@ int main() {
         return 1;
     }
     double free = 0.5;
-    if (((c < a && d < b) && ((double)a - c >= free && (double)b - d >= free)) ||
+    if (((c < a && d < b) && ((double)a - c >= free && (double)b - d >= free))
+||
         ((d < a && c < b) && ((double)a - d >= free && (double)b - c >= free)))
         printf("yes");
     else
@@ -1456,8 +1459,8 @@ int main() {
     size_t buff_1_size = sizeof(buff_1) / sizeof(buff_1[0]);
     size_t buff_2_size = sizeof(buff_2) / sizeof(buff_2[0]);
     for (size_t i = 0; i < buff_1_size; i++) ptr_ar[i] = buff_1[i];
-    for (size_t j = buff_1_size; j < buff_1_size + buff_2_size; j++) ptr_ar[j] = buff_2[j - buff_1_size];
-    return 0;
+    for (size_t j = buff_1_size; j < buff_1_size + buff_2_size; j++) ptr_ar[j] =
+buff_2[j - buff_1_size]; return 0;
 }*/
 
 /*#include <stdio.h>  //5.3.2 Указатели на массивы
@@ -1566,8 +1569,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.1 Операции с массивами: копирование, вставка, удаление, сортировка (написал
-запутано, можно проще намного)
+/*#include <stdio.h>  //5.5.1 Операции с массивами: копирование, вставка,
+удаление, сортировка (написал запутано, можно проще намного)
 
 int main() {
     short ar[10], marks[5];
@@ -1575,12 +1578,9 @@ int main() {
     char c;
     size_t count = 0;
     size_t sz_ar = sizeof(ar) / sizeof(*ar);
-    while ((count < sz_ar && scanf("%hd%c", &ar[count], &c) == 2) && c != '\n') count++;
-    size_t temp = count;
-    int k = count;
-    if (temp > 4) {
-        temp = 4;
-        k = count - 1;
+    while ((count < sz_ar && scanf("%hd%c", &ar[count], &c) == 2) && c != '\n')
+count++; size_t temp = count; int k = count; if (temp > 4) { temp = 4; k = count
+- 1;
     }
     int i = temp;
     for (; i >= 0; i--) {
@@ -1592,8 +1592,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.1 Операции с массивами: копирование, вставка, удаление, сортировка (реализация
-проще из ответов)
+/*#include <stdio.h>  //5.5.1 Операции с массивами: копирование, вставка,
+удаление, сортировка (реализация проще из ответов)
 
 int main(void) {
     short ar[10], marks[5];
@@ -1612,7 +1612,8 @@ int main(void) {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.2 Операции с массивами: копирование, вставка, удаление, сортировка
+/*#include <stdio.h>  //5.5.2 Операции с массивами: копирование, вставка,
+удаление, сортировка
 
 #define SIZE_BUFFER 128
 
@@ -1622,13 +1623,10 @@ int main() {
     int flag = 0;
     size_t count = 0;
     size_t sz_ar = sizeof(buffer) / sizeof(*buffer);
-    while ((count < sz_ar && scanf("%d%c", &buffer[count], &c) == 2) && c != '\n') count++;
-    flag = (count + 1) / 2;
-    if ((count + 1) % 2 == 0) {
-        for (size_t i = 0; i < (count + 1) / 2; i++, flag++) {
-            int temp = buffer[i];
-            buffer[i] = buffer[flag];
-            buffer[flag] = temp;
+    while ((count < sz_ar && scanf("%d%c", &buffer[count], &c) == 2) && c !=
+'\n') count++; flag = (count + 1) / 2; if ((count + 1) % 2 == 0) { for (size_t i
+= 0; i < (count + 1) / 2; i++, flag++) { int temp = buffer[i]; buffer[i] =
+buffer[flag]; buffer[flag] = temp;
         }
     } else {
         for (size_t i = 0; i < (count + 1) / 2; i++, flag++) {
@@ -1641,7 +1639,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.3 Операции с массивами: копирование, вставка, удаление, сортировка
+/*#include <stdio.h>  //5.5.3 Операции с массивами: копирование, вставка,
+удаление, сортировка
 
 #define TOTAL 10
 
@@ -1653,7 +1652,8 @@ int main() {
     int insr_index = 0;
     int flag = 0;
 
-    while ((count < sz_ar && scanf("%d%c", &digs[count], &c) == 2) && c != '\n') count++;
+    while ((count < sz_ar && scanf("%d%c", &digs[count], &c) == 2) && c != '\n')
+count++;
 
     for (int i = 0; i < (int)count; i++) {
         if (digs[i] == 5) {
@@ -1678,8 +1678,9 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.4 Операции с массивами: копирование, вставка, удаление, сортировка(в vs работает
-только с добавлением символа новой строки на степике без него)
+/*#include <stdio.h>  //5.5.4 Операции с массивами: копирование, вставка,
+удаление, сортировка(в vs работает только с добавлением символа новой строки на
+степике без него)
 
 #define TOTAL 10
 
@@ -1707,8 +1708,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.4 Операции с массивами: копирование, вставка, удаление, сортировка (второй вариант
-не читерский)
+/*#include <stdio.h>  //5.5.4 Операции с массивами: копирование, вставка,
+удаление, сортировка (второй вариант не читерский)
 
 #define TOTAL 10
 
@@ -1741,8 +1742,9 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.5 Операции с массивами: копирование, вставка, удаление, сортировка(в vs работает
-только с добавлением символа новой строки на степике без него)
+/*#include <stdio.h>  //5.5.5 Операции с массивами: копирование, вставка,
+удаление, сортировка(в vs работает только с добавлением символа новой строки на
+степике без него)
 
 #define TOTAL 20
 
@@ -1777,7 +1779,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.6 Операции с массивами: копирование, вставка, удаление, сортировка
+/*#include <stdio.h>  //5.5.6 Операции с массивами: копирование, вставка,
+удаление, сортировка
 
 #define TOTAL 20
 
@@ -1804,7 +1807,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.7 Операции с массивами: копирование, вставка, удаление, сортировка
+/*#include <stdio.h>  //5.5.7 Операции с массивами: копирование, вставка,
+удаление, сортировка
 
 #define TOTAL 20
 
@@ -1833,7 +1837,8 @@ int main(void) {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.5.8 Операции с массивами: копирование, вставка, удаление, сортировка
+/*#include <stdio.h>  //5.5.8 Операции с массивами: копирование, вставка,
+удаление, сортировка
 
 #define TOTAL 20
 
@@ -1862,7 +1867,8 @@ int main(void) {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.6.1 Двумерные и многомерные массивы. Указатели на двумерные массивы
+/*#include <stdio.h>  //5.6.1 Двумерные и многомерные массивы. Указатели на
+двумерные массивы
 
 int main() {
     int ar_2D[3][3];
@@ -1872,7 +1878,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.6.2 Двумерные и многомерные массивы. Указатели на двумерные массивы
+/*#include <stdio.h>  //5.6.2 Двумерные и многомерные массивы. Указатели на
+двумерные массивы
 
 int main() {
     int ar_2D[4][3];
@@ -1891,7 +1898,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.6.3 Двумерные и многомерные массивы. Указатели на двумерные массивы
+/*#include <stdio.h>  //5.6.3 Двумерные и многомерные массивы. Указатели на
+двумерные массивы
 
 #define ROWS 3
 #define COLS 5
@@ -1902,7 +1910,8 @@ int main() {
     double mean[ROWS];
 
     short x;
-    for (int i = 0; i < ROWS * COLS && scanf("%hd", &x) == 1; ++i) *ptr_vls++ = x;
+    for (int i = 0; i < ROWS * COLS && scanf("%hd", &x) == 1; ++i) *ptr_vls++ =
+x;
 
     for (int i = 0; i < ROWS; i++) {
         double sum = 0.0;
@@ -1915,7 +1924,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.6.4 Двумерные и многомерные массивы. Указатели на двумерные массивы
+/*#include <stdio.h>  //5.6.4 Двумерные и многомерные массивы. Указатели на
+двумерные массивы
 
 #define ROWS 3
 #define COLS 4
@@ -1943,9 +1953,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.6.5 Двумерные и многомерные массивы. Указатели на двумерные массивы
-#include <stdlib.h>
-#include <time.h>
+/*#include <stdio.h>  //5.6.5 Двумерные и многомерные массивы. Указатели на
+двумерные массивы #include <stdlib.h> #include <time.h>
 
 #define SIZE 10
 #define MINES 12
@@ -1958,13 +1967,12 @@ int main() {
     while (count < MINES) {
         int random_rows = rand() % SIZE;
         int random_cols = rand() % SIZE;
-        if (pg[random_rows][random_cols] == 0 && pg[random_rows][random_cols - 1] == 0 &&
-            pg[random_rows][random_cols + 1] == 0 && pg[random_rows - 1][random_cols] == 0 &&
-            pg[random_rows + 1][random_cols] == 0 && pg[random_rows - 1][random_cols - 1] == 0 &&
-            pg[random_rows - 1][random_cols + 1] == 0 && pg[random_rows + 1][random_cols + 1] == 0 &&
-            pg[random_rows + 1][random_cols - 1] == 0) {
-                pg[random_rows][random_cols] = '*';
-                count++;
+        if (pg[random_rows][random_cols] == 0 && pg[random_rows][random_cols -
+1] == 0 && pg[random_rows][random_cols + 1] == 0 && pg[random_rows -
+1][random_cols] == 0 && pg[random_rows + 1][random_cols] == 0 && pg[random_rows
+- 1][random_cols - 1] == 0 && pg[random_rows - 1][random_cols + 1] == 0 &&
+pg[random_rows + 1][random_cols + 1] == 0 && pg[random_rows + 1][random_cols -
+1] == 0) { pg[random_rows][random_cols] = '*'; count++;
         }
     }
     for (int i = 0; i < SIZE; i++) {
@@ -1979,7 +1987,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.7.1 Строки. Способы объявления, escape-последовательности
+/*#include <stdio.h>  //5.7.1 Строки. Способы объявления,
+escape-последовательности
 
 int main() {
     char str[100] = {"Best string!"};
@@ -1987,14 +1996,16 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.7.2 Строки. Способы объявления, escape-последовательности
+/*#include <stdio.h>  //5.7.2 Строки. Способы объявления,
+escape-последовательности
 
 int main() {
     char *text[] = {"language C", "language C++", "language Python"};
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.7.3 Строки. Способы объявления, escape-последовательности
+/*#include <stdio.h>  //5.7.3 Строки. Способы объявления,
+escape-последовательности
 
 int main() {
     char str[100] = "Best string!";
@@ -2010,7 +2021,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.7.4 Строки. Способы объявления, escape-последовательности
+/*#include <stdio.h>  //5.7.4 Строки. Способы объявления,
+escape-последовательности
 
 int main() {
     char str[50] = "best string!";
@@ -2026,7 +2038,8 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>  //5.7.5 Строки. Способы объявления, escape-последовательности
+/*#include <stdio.h>  //5.7.5 Строки. Способы объявления,
+escape-последовательности
 
 int main() {
     char str[50] = "Best   language  \"C\"";
@@ -2073,7 +2086,7 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h>  //5.8.3 Ввод/вывод строк в стандартные потоки
+/*#include <stdio.h>  //5.8.3 Ввод/вывод строк в стандартные потоки
 #define CITY 6
 
 int main() {
@@ -2090,5 +2103,36 @@ int main() {
     }
     printf("\n");
     return 0;
+}*/
+
+/*#include <stdio.h>
+
+void strip_string(char *str, int max_len) {
+  int count = 0;
+  while (*str++ != '\0' && count++ < max_len)
+    ;
+
+  if (count > 1) {
+    str -= 2;
+    if (*str == '\n')
+      *str = '\0';
+  }
 }
 
+int main() {
+  char str[100];
+  fgets(str, sizeof(str), stdin);
+  strip_string(str, sizeof(str));
+  int i = 0;
+  while (str[i] != '\0') {
+    if (str[i] == 'e') {
+      for (int j = i; str[j] != '\0'; j++) {
+        str[j] = str[j + 1];
+      }
+      i--;
+    }
+    i++;
+  }
+  puts(str);
+  return 0;
+}*/
