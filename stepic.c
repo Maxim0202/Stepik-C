@@ -2105,7 +2105,7 @@ int main() {
     return 0;
 }*/
 
-/*#include <stdio.h>
+#include <stdio.h>
 
 void strip_string(char *str, int max_len) {
   int count = 0;
@@ -2135,4 +2135,4 @@ int main() {
   }
   puts(str);
   return 0;
-}*/
+}
