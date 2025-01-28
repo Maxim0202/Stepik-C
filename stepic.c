@@ -2248,3 +2248,102 @@ int main() {
     return 0;
 }*/
 
+/*#include <stdio.h>  //5.9.1 Строковые функции strlen(), strcpy(), strncpy(), strcat()
+#include <string.h>
+
+int main() {
+    char cities[6][50] = {};
+    int max = 0;
+    int rows = 0;
+    for (int i = 0; i < 6; i++) {
+        scanf("%s", cities[i]);
+        i++;
+    }
+    for (int i = 0; i < 6; i++) {
+        int length = strlen(cities[i]);
+        if (length > max) {
+            max = length;
+            rows = i;
+        }
+        i++;
+    }
+    puts(cities[rows]);
+    return 0;
+}*/
+
+/*5.9.2 Строковые функции strlen(), strcpy(), strncpy(), strcat() (решено 3 способами 1.массив внутри цикла и
+ничего каждый раз очищать не надо 2.массив вне цикла и очищение его через функцию memset или 3.цикл for)*/
+
+/*#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char cities[6][50] = {0};
+    // char buff_cities[50] = {0};
+    for (int i = 0; i < 6; i++) scanf("%s", cities[i]);
+
+    for (int i = 0; i < 6; i++) {
+        for (int j = i + 1; j < 6; j++) {
+            if (strlen(cities[i]) < strlen(cities[j])) {
+                char buff_cities[50] = {0};
+                // for (size_t k = 0; k < sizeof(buff_cities); k++) buff_cities[k] = '\0';
+                // memset(buff_cities, '\0', sizeof(buff_cities));
+                strcpy(buff_cities, cities[i]);
+
+                // for (size_t k = 0; k < sizeof(cities[i]); k++) cities[i][k] = '\0';
+                // memset(cities[i], '\0', sizeof(cities[i]));
+                strcpy(cities[i], cities[j]);
+
+                // for (size_t k = 0; k < sizeof(cities[j]); k++) cities[j][k] = '\0';
+                // memset(cities[j], '\0', sizeof(cities[j]));
+                strcpy(cities[j], buff_cities);
+            }
+        }
+    }
+    for (int i = 0; i < 2; i++) printf("%s ", cities[i]);
+    return 0;
+}*/
+
+/*#include <stdio.h> //5.9.3 Строковые функции strlen(), strcpy(), strncpy(), strcat()
+#include <string.h>
+
+void strip_string(char* str, int max_len) {
+    int count = 0;
+    while (*str++ != '\0' && count++ < max_len);
+
+    if (count > 1) {
+        str -= 2;
+        if (*str == '\n') *str = '\0';
+    }
+}
+
+int main() {
+    char str[100], res_str[100] = "I love language C ";
+    fgets(str, sizeof(str), stdin);
+    strip_string(str, sizeof(str));
+    size_t max_add = sizeof(res_str) - strlen(res_str) - 1;
+    strncat(res_str, str, max_add);
+    res_str[sizeof(res_str) - 1] = '\0';
+    puts(res_str);
+    return 0;
+}*/
+
+#include <stdio.h>
+#include <string.h>
+#define ROWS 7 
+#define COLS 50
+
+int main() {
+    char ps[ROWS][COLS] = {0};
+    char ps_res[COLS] = {0};
+    size_t max_add = sizeof(ps_res) - strlen(ps_res) - 1; 
+
+    for (int i = 0; i < ROWS; i++) scanf("%49s", ps[i]);
+    
+    for (int i = 0; i < ROWS; i++) {
+        strncat(ps_res, &ps[i][0], max_add);
+            if (i == 6) ps_res[sizeof(ps_res) - 1] = '\0';
+    }
+    puts(ps_res);
+    return 0;
+}
