@@ -2105,34 +2105,146 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h>
+/*#include <stdio.h>  //5.8.4 Ввод/вывод строк в стандартные потоки
 
 void strip_string(char *str, int max_len) {
-  int count = 0;
-  while (*str++ != '\0' && count++ < max_len)
-    ;
+    int count = 0;
+    while (*str++ != '\0' && count++ < max_len);
 
-  if (count > 1) {
-    str -= 2;
-    if (*str == '\n')
-      *str = '\0';
-  }
+    if (count > 1) {
+        str -= 2;
+        if (*str == '\n') *str = '\0';
+    }
 }
 
 int main() {
-  char str[100];
-  fgets(str, sizeof(str), stdin);
-  strip_string(str, sizeof(str));
-  int i = 0;
-  while (str[i] != '\0') {
-    if (str[i] == 'e') {
-      for (int j = i; str[j] != '\0'; j++) {
-        str[j] = str[j + 1];
-      }
-      i--;
+    char str[100];
+    fgets(str, sizeof(str), stdin);
+    strip_string(str, sizeof(str));
+    int i = 0;
+    while (str[i] != '\0') {
+        if (str[i] == 'e') {
+            for (int j = i; str[j] != '\0'; j++) {
+                str[j] = str[j + 1];
+            }
+            i--;
+        }
+        i++;
     }
-    i++;
-  }
-  puts(str);
-  return 0;
+    puts(str);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.8.5 Ввод/вывод строк в стандартные потоки
+
+void strip_string(char *str, int max_len) {
+    int count = 0;
+    while (*str++ != '\0' && count++ < max_len);
+
+    if (count > 1) {
+        str -= 2;
+        if (*str == '\n') *str = '\0';
+    }
 }
+
+int main() {
+    char str[100];
+    fgets(str, sizeof(str), stdin);
+    strip_string(str, sizeof(str));
+    int i = 0, count = 0;
+    while (str[i] != '\0') {
+        if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0')) count++;
+        i++;
+    }
+    printf("%d", count);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.8.6 Ввод/вывод строк в стандартные потоки (неправильно понял задание искал самое
+длиное слово в строке)
+
+void strip_string(char* str, int max_len) {
+    int count = 0;
+    while (*str++ != '\0' && count++ < max_len);
+
+    if (count > 1) {
+        str -= 2;
+        if (*str == '\n') *str = '\0';
+    }
+}
+
+int main() {
+    char str[100];
+    fgets(str, sizeof(str), stdin);
+    strip_string(str, sizeof(str));
+    int i = 0, index = 0;
+    int long_word = 0, current_word = 0;
+    while (str[i] != '\0') {
+        if (str[i] == ' ') {
+            if (current_word > long_word) {
+                long_word = current_word;
+                index = i - current_word;
+            }
+            current_word = 0;
+        } else {
+            current_word++;
+        }
+        i++;
+    }
+
+    while (long_word != 0) {
+        printf("%c", str[index]);
+        index++;
+        long_word--;
+    }
+
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.8.6 Ввод/вывод строк в стандартные потоки
+
+void strip_string(char* str, int max_len) {
+    int count = 0;
+    while (*str++ != '\0' && count++ < max_len);
+
+    if (count > 1) {
+        str -= 2;
+        if (*str == '\n') *str = '\0';
+    }
+}
+
+int main() {
+    char str[100];
+    fgets(str, sizeof(str), stdin);
+    strip_string(str, sizeof(str));
+    int i = 0, index_two_word = 0, index_end_first_word = 0, count = 0, count_space = 0, flag = 0;
+    while (str[i] != '\0') {
+        if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0')) count++;
+        if (count == 1) {
+            index_end_first_word = i;
+            for (int j = i; str[j] == ' '; j++) {
+                count_space++;
+                if (str[j + 1] == '\0') {
+                    count_space = 0;
+                    break;
+                }
+            }
+        }
+        if (count_space) {
+            index_two_word = index_end_first_word + count_space;
+            flag = 1;
+            break;
+        }
+        i++;
+    }
+    if (flag) {
+        while (str[index_two_word] != ' ' && str[index_two_word] != '\0') {
+            printf("%c", str[index_two_word]);
+            index_two_word++;
+        }
+    } else {
+        printf("no");
+    }
+    return 0;
+}*/
+
