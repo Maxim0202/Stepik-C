@@ -2328,22 +2328,156 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h>
+/*#include <stdio.h>  //5.9.4 Строковые функции strlen(), strcpy(), strncpy(), strcat()
 #include <string.h>
-#define ROWS 7 
+#define ROWS 7
 #define COLS 50
 
 int main() {
     char ps[ROWS][COLS] = {0};
-    char ps_res[COLS] = {0};
-    size_t max_add = sizeof(ps_res) - strlen(ps_res) - 1; 
+    char ps_res[COLS * ROWS + 7] = {0};
+    size_t max_add = sizeof(ps_res) - strlen(ps_res) - 1;
 
-    for (int i = 0; i < ROWS; i++) scanf("%49s", ps[i]);
-    
+    for (int i = 0; i < ROWS; i++) {
+        scanf("%49s", ps[i]);
+    }
+
     for (int i = 0; i < ROWS; i++) {
         strncat(ps_res, &ps[i][0], max_add);
-            if (i == 6) ps_res[sizeof(ps_res) - 1] = '\0';
+        if (i < ROWS - 1) {
+            size_t max = strlen(ps_res);
+            ps_res[max] = ' ';
+        }
     }
     puts(ps_res);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.9.5 Строковые функции strlen(), strcpy(), strncpy(), strcat()
+#include <string.h>
+#define ROWS 7
+#define COLS 50
+
+int main() {
+    char ps[ROWS][COLS] = {0};
+    char ps_res[ROWS * COLS + ROWS] = {0};
+    size_t max_add = sizeof(ps_res) - strlen(ps_res) - 1;
+    for (int i = 0; i < ROWS; i++) {
+        scanf("%49s", ps[i]);
+    }
+
+    for (int i = 0; i < ROWS; i++) {
+        size_t length = strlen(ps[i]);
+        if (length % 2 == 0) {
+            strncat(ps_res, &ps[i][0], max_add);
+            size_t length_res = strlen(ps_res);
+            ps_res[length_res] = ' ';
+        }
+        if (i == ROWS - 1) {
+            size_t length_res_final = strlen(ps_res);
+            ps_res[length_res_final - 1] = '\0';
+        }
+    }
+    puts(ps_res);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.9.6 Строковые функции strlen(), strcpy(), strncpy(), strcat()
+#include <string.h>
+#define ROWS 7
+#define COLS 50
+
+int main() {
+    char ps[ROWS][COLS] = {0};
+    char ps_sort[ROWS * COLS + ROWS] = {0};
+    size_t max_add = sizeof(ps_sort) - strlen(ps_sort) - 1;
+    for (int i = 0; i < ROWS; i++) {
+        scanf("%49s", ps[i]);
+    }
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = i + 1; j < ROWS; j++) {
+            if (strlen(ps[i]) > strlen(ps[j])) {
+                char buff[50] = {0};
+                strcpy(buff, ps[i]);
+                strcpy(ps[i], ps[j]);
+                strcpy(ps[j], buff);
+            }
+        }
+    }
+    for (int i = 0; i < ROWS; i++) {
+        strncat(ps_sort, &ps[i][0], max_add);
+        size_t length_res = strlen(ps_sort);
+        ps_sort[length_res] = ' ';
+        if (i == ROWS - 1) {
+            size_t length_res_final = strlen(ps_sort);
+            ps_sort[length_res_final - 1] = '\0';
+        }
+    }
+    puts(ps_sort);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.10.1 Строковые функции сравнения, поиска символов и фрагментов
+#include <string.h>
+
+int main() {
+    char str[100] = {0};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_str = strrchr(str, '\n');
+    if (ptr_str != NULL) {
+        *ptr_str = '\0';
+    }
+    printf("[%s]", str);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.10.2 Строковые функции сравнения, поиска символов и фрагментов
+#include <string.h>
+
+int main() {
+    char str[100] = {0};
+    fgets(str, sizeof(str) - 1, stdin);
+    char* ptr_n = strrchr(str, '\n');
+    char* ptr = str;
+    int count = 0;
+    if (ptr_n != NULL) *ptr_n = '\0';
+
+    while (1) {
+        char* ptr_is = strstr(ptr, "is");
+        if (ptr_is != NULL) {
+            ptr = ptr_is + sizeof("is");
+            count++;
+        } else {
+            break;
+        }
+    }
+    printf("%d", count);
+    return 0;
+}*/
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[200] = {0};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+    char *ptr = str;
+    for (size_t i = 0; i < strlen(str); i++) {
+        if (str[i] == '-') {
+            int *ptr_p = str[i];
+            for (size_t j = strlen(str); j > strlen(ptr_p);j--) {
+                str[j + 1] = str[j];
+                ptr++;
+            }
+        }
+
+    }
+        char *ptr_def = strchr(ptr, '-');
+        if (ptr_def != NULL) {
+
+    }
+    puts(str);
     return 0;
 }
