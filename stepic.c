@@ -2455,29 +2455,109 @@ int main() {
     return 0;
 }*/
 
+/*#include <stdio.h>  //5.10.3 Строковые функции сравнения, поиска символов и фрагментов
+#include <string.h>
+#define REMOVE "-+-"
+
+int main() {
+    char str[200] = {0};
+    char res_str[300] = {0};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+
+    char *ptr_str = str;
+    if (ptr_n != NULL) *ptr_n = '\0';
+
+    while (*ptr_str != '\0') {
+        if (*ptr_str != '-') {
+            strncat(res_str, ptr_str, 1);
+        } else {
+            strcat(res_str, REMOVE);
+        }
+        ptr_str++;
+    }
+    puts(res_str);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.10.4 Строковые функции сравнения, поиска символов и фрагментов (Решил не сам)
+#include <string.h>
+
+int main() {
+    char str[100] = {0};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+
+    char *read_ptr = str;
+    char *write_ptr = str;
+    while (*read_ptr != '\0') {
+        if (*read_ptr == '-') {
+            while (*read_ptr == '-') {
+                read_ptr++;
+            }
+            *write_ptr++ = '-';
+        } else {
+            *write_ptr++ = *read_ptr++;
+        }
+    }
+    puts(str);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.10.4 Строковые функции сравнения, поиска символов и фрагментов (более проще, из
+ответов) #include <string.h>
+
+int main() {
+    char str[100] = {0};
+    fgets(str, sizeof(str)-1, stdin);
+    char* ptr_n = strrchr(str, '\n');
+    if(ptr_n != NULL)
+        *ptr_n = '\0';
+
+    char *dash = strstr(str, "--");
+
+    while(dash != NULL) {
+        for(int i = 0; i<strlen(dash); i++) {
+                dash[i] = dash[i+1];
+        }
+        dash = strstr(str, "--");
+    }
+    puts(str);
+    printf("\n");
+
+    return 0;
+}*/
+
 #include <stdio.h>
 #include <string.h>
 
 int main() {
-    char str[200] = {0};
-    fgets(str, sizeof(str) - 1, stdin);
-    char *ptr_n = strrchr(str, '\n');
-    if (ptr_n != NULL) *ptr_n = '\0';
-    char *ptr = str;
-    for (size_t i = 0; i < strlen(str); i++) {
-        if (str[i] == '-') {
-            int *ptr_p = str[i];
-            for (size_t j = strlen(str); j > strlen(ptr_p);j--) {
-                str[j + 1] = str[j];
-                ptr++;
-            }
+    char cities[500] = {0};
+    char *ptr_cities = cities;
+    char *ptr_prob;
+    int max_cities = 10;
+    for (int i = 0; i < max_cities; i++) {
+        fgets(ptr_cities, sizeof(cities) - strlen(cities) - 1, stdin);
+        if (*ptr_cities == '\n') {
+            *ptr_cities = '\0';
+            max_cities++;
+            ptr_cities = strrchr(cities, ' ') + 1;
+            continue;
         }
-
+        if (strstr(ptr_cities, "на")) {
+            continue;
+        }
+        ptr_prob = strchr(ptr_cities, '\n');
+        if (ptr_prob != NULL && i != max_cities - 1) {
+            *ptr_prob = ' ';
+        }
+        if (i == max_cities - 1) {
+            ptr_prob = strrchr(cities, '\n');
+            *ptr_prob = '\0';
+        }
+        ptr_cities = ptr_prob + 1;
     }
-        char *ptr_def = strchr(ptr, '-');
-        if (ptr_def != NULL) {
-
-    }
-    puts(str);
+    puts(cities);
     return 0;
 }
