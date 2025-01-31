@@ -2529,7 +2529,7 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h>
+/*#include <stdio.h>  //5.10.5 Строковые функции сравнения, поиска символов и фрагментов
 #include <string.h>
 
 int main() {
@@ -2542,7 +2542,6 @@ int main() {
         if (*ptr_cities == '\n') {
             *ptr_cities = '\0';
             max_cities++;
-            ptr_cities = strrchr(cities, ' ') + 1;
             continue;
         }
         if (strstr(ptr_cities, "на")) {
@@ -2552,12 +2551,205 @@ int main() {
         if (ptr_prob != NULL && i != max_cities - 1) {
             *ptr_prob = ' ';
         }
-        if (i == max_cities - 1) {
-            ptr_prob = strrchr(cities, '\n');
-            *ptr_prob = '\0';
+        if (i == max_cities - 1) {  //с этим фрагментом на степике была проблему, пришлось его
+закоментировать. ptr_prob = strrchr(cities, '\n'); *ptr_prob = '\0';
         }
         ptr_cities = ptr_prob + 1;
     }
     puts(cities);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.10.6 Строковые функции сравнения, поиска символов и фрагментов
+#include <string.h>
+
+int main() {
+    char cities[500] = {0};
+    int max_cities = 10;
+    char *ptr_cities = cities;
+    char *ptr_prob;
+    for (int i = 0; i < max_cities; i++) {
+        char buff_cities[100] = {0};
+        char *buff_cities_ptr = buff_cities;
+        fgets(buff_cities, sizeof(buff_cities) - strlen(buff_cities), stdin);
+        if (*buff_cities_ptr == '\n') {
+            *buff_cities_ptr = '\0';
+            max_cities++;
+            continue;
+        }
+        if (strstr(cities, buff_cities) != 0 && i != 0) {
+            continue;
+        }
+        strcat(cities, buff_cities);
+    }
+    for (int i = 0; i <= max_cities; i++) {
+        ptr_prob = strrchr(ptr_cities, '\n');
+        if (ptr_prob != NULL) {
+            *ptr_prob = ' ';
+        }
+    }
+    puts(cities);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.10.7 Строковые функции сравнения, поиска символов и фрагментов
+#include <string.h>
+
+int main() {
+    char time[10] = {0};
+    char time_res[10] = {0};
+    char *time_ptr = time;
+    char *n_ptr;
+    fgets(time, sizeof(time) - strlen(time) - 1, stdin);
+    n_ptr = strrchr(time_ptr, '\n');
+    if (n_ptr != NULL) *n_ptr = '\0';
+
+    time_res[0] = time[6];
+    time_res[1] = time[7];
+    time_res[2] = time[2];
+    time_res[3] = time[3];
+    time_res[4] = time[4];
+    time_res[5] = time[5];
+    time_res[6] = time[0];
+    time_res[7] = time[1];
+    puts(time_res);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //not done ERROR
+#include <string.h>
+
+int main() {
+    char str[100] = {0};
+    char str_pass[100] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,-.0123456789_@";
+    char* str_pass_ptr;
+    fgets(str, sizeof(str) - 1, stdin);
+    char* ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+    str_pass_ptr = strpbrk(str_pass, "@");
+    if (str_pass_ptr != NULL)
+        printf("1");
+    else
+        printf("0");
+
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.11.1 Строковые функции sprintf(), atoi(), atol(), atoll() и atof()
+#include <string.h>
+
+int main() {
+    int h, m, s;
+    scanf("%d%d%d", &h, &m, &s);
+    char time[100];
+    char def[] = "--";
+    if (h < 0 || h > 23) {
+        const char format[] = "%s:%02d:%02d";
+        sprintf(time, format, def, m, s);
+    } else if (m < 0 || m > 59) {
+        const char format[] = "%02d:%s:%02d";
+        sprintf(time, format, h, def, s);
+    } else if (s < 0 || s > 59) {
+        const char format[] = "%02d:%02d:%s";
+        sprintf(time, format, h, m, def);
+    } else {
+        const char format[] = "%02d:%02d:%02d";
+        sprintf(time, format, h, m, s);
+    }
+    puts(time);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.11.2 Строковые функции sprintf(), atoi(), atol(), atoll() и atof()
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    char str[100] = {0};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+    char *ptr_first = strchr(str, ' ');
+    char *ptr_find_x = strchr(str, 'x');
+    char *ptr_find_x_end = strrchr(str, 'x');
+    int h = atoi(ptr_first + 1);
+    int w = atoi(ptr_find_x + 2);
+    int d = atoi(ptr_find_x_end + 2);
+    printf("%d %d %d", h, w, d);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.11.3 Строковые функции sprintf(), atoi(), atol(), atoll() и atof()
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    char str[200] = {0};
+    double csv[20] = {0};
+    int i = 1;
+    int count = 0;
+    char *ptr_str = str;
+    char *ptr_first_number;
+
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+
+    ptr_first_number = strchr(ptr_str, ' ');
+    csv[0] = atof(ptr_first_number);
+
+    while (ptr_str != NULL) {
+        char *ptr_num = strchr(ptr_str, ';');
+        while (ptr_num != NULL) {
+            if (*(ptr_num + 1) == ' ') {
+                ptr_num++;
+                continue;
+            } else if (*(ptr_num + 1) != ' ') {
+                csv[i] = atof(ptr_num + 1);
+                i++;
+                count++;
+                break;
+            } else {
+                csv[i] = atof(ptr_num);
+                i++;
+                count++;
+                break;
+            }
+        }
+        ptr_str = strchr(ptr_num + 1, ';');
+    }
+    for (int j = 0; j <= count; j++) printf("%lf ", csv[j]);
+    return 0;
+}*/
+
+#include <stdio.h>
+#include <string.h>
+
+#define TOTAL 10
+
+int main() {
+    char str[TOTAL][50];
+    int count = 0;
+    while (count < TOTAL && fgets(str[count], sizeof(str) - 1, stdin)) {
+        char *ptr_n = strrchr(str[count], '\n');
+        if (ptr_n != NULL) *ptr_n = '\0';
+        count++;
+    }
+
+    int new_count = 0;
+    for (int i = 0; i < count; i++) {
+        if (strstr(str[i], "12300") == NULL) {
+            strcpy(str[new_count++], str[i]);
+        }
+    }
+    for (int j = 0; j < count + 1; j++) {
+        char *str_ptr = str[j];
+        if (*str_ptr != '\0') {
+            char *token;
+            token = strtok(str_ptr, ":");
+            printf("%s ", token);
+        }
+    }
+
     return 0;
 }
