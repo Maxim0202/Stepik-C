@@ -2722,7 +2722,7 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h>
+/*#include <stdio.h>  //5.11.4 Строковые функции sprintf(), atoi(), atol(), atoll() и atof()
 #include <string.h>
 
 #define TOTAL 10
@@ -2737,7 +2737,7 @@ int main() {
     }
 
     int new_count = 0;
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count + 1; i++) {
         if (strstr(str[i], "12300") == NULL) {
             strcpy(str[new_count++], str[i]);
         }
@@ -2747,9 +2747,109 @@ int main() {
         if (*str_ptr != '\0') {
             char *token;
             token = strtok(str_ptr, ":");
-            printf("%s ", token);
+            if (*str_ptr == '\0')
+                printf("%s", token);
+            else
+                printf("%s ", token);
         }
     }
 
     return 0;
-}
+}*/
+
+/*#include <stdio.h>  //5.11.5 Строковые функции sprintf(), atoi(), atol(), atoll() и atof()
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    char stud[200] = {0};
+    int number[10] = {0};
+    int sum = 0;
+    int i = -1;
+    fgets(stud, sizeof(stud) - 1, stdin);
+    char *ptr_n = strrchr(stud, '\n');
+    if (ptr_n != NULL) {
+        *ptr_n = '\0';
+    }
+    char *ptr_number = strtok(stud, " ");
+    for (; ptr_number != NULL; i++) {
+        number[i] = atoi(ptr_number);
+        ptr_number = strtok(NULL, " ");
+    }
+    for (int j = 0; j < i; j++) {
+        sum += number[j];
+    }
+    printf("%.3lf", (double)sum / i);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.11.6 Строковые функции sprintf(), atoi(), atol(), atoll() и atof()
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    char stud[200] = {0};
+    char res[200] = {0};
+    fgets(stud, sizeof(stud) - 1, stdin);
+    char *ptr_n = strrchr(stud, '\n');
+    if (ptr_n != NULL) {
+        *ptr_n = '\0';
+    }
+    char *ptr_stud_1 = strtok(stud, " ");
+    int count = 0;
+    while (ptr_stud_1 != NULL) {
+        strcat(res, ptr_stud_1);
+        char *ptr_res = strchr(res, '\0');
+        ptr_stud_1 = strtok(NULL, " ");
+        if (count == 0) {
+            strcat(ptr_res, ": ");
+        } else if (count > 0 && ptr_stud_1 != NULL) {
+            strcat(ptr_res, ", ");
+        }
+        count++;
+    }
+    puts(res);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //5.11.7 Строковые функции sprintf(), atoi(), atol(), atoll() и atof()
+#include <stdlib.h>
+#include <string.h>
+
+#define TOTAL 10
+
+int main() {
+    char str[TOTAL][50];
+    char *p_sort[TOTAL];
+
+    int count = 0;
+    while (count < TOTAL && fgets(str[count], sizeof(str) - 1, stdin)) {
+        char *ptr_n = strrchr(str[count], '\n');
+        if (ptr_n != NULL) *ptr_n = '\0';
+        p_sort[count] = str[count];
+        count++;
+    }
+
+    for (int i = 0; i < count; i++) {
+        for (int j = i + 1; j < count; j++) {
+            char *ptr_str_1 = strrchr(p_sort[i], ' ');
+            char *ptr_str_2 = strrchr(p_sort[j], ' ');
+
+            if (ptr_str_1 != NULL && ptr_str_2 != NULL) {
+                double num_1 = atof(ptr_str_1);
+                double num_2 = atof(ptr_str_2);
+                if (num_2 > num_1) {
+                    char *temp = p_sort[i];
+                    p_sort[i] = p_sort[j];
+                    p_sort[j] = temp;
+                }
+            }
+        }
+    }
+    for (int i = 0; i < count; i++) {
+        char *ptr_print = strtok(p_sort[i], ":");
+        if (ptr_print != NULL) printf("%s ", ptr_print);
+    }
+
+    return 0;
+}*/
