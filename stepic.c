@@ -2853,3 +2853,184 @@ int main() {
 
     return 0;
 }*/
+
+/*#include <stdio.h>  //6.1.1 Объявление и вызов функций
+
+void show_info(void) { printf("It\'s my first function\n"); }
+
+int main() {
+    show_info();
+    return 0;
+}*/
+
+/*#include <stdio.h>  //6.1.2 Объявление и вызов функций
+
+int fact(int number) {
+    if (number < 0) return -1;
+    int res = 1;
+    for (int i = 1; i <= number; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+int main() {
+    int n = 6;
+    printf("%d", fact(n));
+    return 0;
+}*/
+
+/*#include <math.h>  //6.1.3 Объявление и вызов функций
+#include <stdio.h>
+
+int pow_n(int n, int m) {
+    if (m == 0) return 1;
+    int res = pow(n, m);
+    return res;
+}
+
+int main() {
+    int number_1 = 2, number_2 = 4;
+    printf("%d", pow_n(number_1, number_2));
+    return 0;
+}*/
+
+/*#include <stdio.h>  //6.1.4 Объявление и вызов функций
+
+int get_volume(int h, int w, int d) {
+    int res = h * w * d;
+    return res;
+}
+
+int main() {
+    int height, width, depth;
+    if (scanf("%d%d%d", &height, &width, &depth) != 3) {
+        printf("n/a");
+        return 1;
+    }
+    printf("%d", get_volume(height, width, depth));
+    return 0;
+}*/
+
+/*#include <stdio.h> //6.2.1 Объявление и вызов функций
+#include <stdlib.h>
+
+void read_input(int *a, int *b, int *c) {
+    if (scanf("%d%d%d", a, b, c) != 3) {
+        printf("n/a");
+        exit(1);
+    }
+}
+
+int is_triangle(int a, int b, int c) {
+    if (a + b < c || a + c < b || b + c < a)
+        return 0;
+    else
+        return 1;
+}
+
+int main() {
+    int a, b, c;
+    read_input(&a, &b, &c);
+    printf("%d", is_triangle(a, b, c));
+    return 0;
+}*/
+
+/*#include <stdio.h>  //6.2.2 Объявление и вызов функций
+
+double get_mean2(int number_1, int number_2) { return (number_1 + number_2) / 2.0; }
+
+int main() {
+    int a, b;
+    if (scanf("%d%d", &a, &b) != 2) {
+        printf("n/a");
+        return 1;
+    }
+    printf("%.1lf", get_mean2(a, b));
+    return 0;
+}*/
+
+/*#include <stdio.h>  //6.2.3 Объявление и вызов функций
+
+int get_sum2(int number_1, int number_2) { return number_1 + number_2; }
+
+int main() {
+    int a, b, c;
+    if (scanf("%d%d%d", &a, &b, &c) != 3) {
+        printf("n/a");
+        return 1;
+    }
+    printf("%d", get_sum2(get_sum2(a, b), c));
+    return 0;
+}*/
+
+/*include <stdio.h>  //6.2.4 Объявление и вызов функций
+
+int is_even(int number) {
+    if (number % 2 == 0)
+        return 1;
+    else
+        return 0;
+}
+
+int main() {
+    int x;
+    while (scanf("%d", &x) == 1) {
+        if (is_even(x)) printf("%d ", x);
+    }
+    return 0;
+}*/
+
+/*#include <stdio.h>  //6.2.5 Объявление и вызов функций
+
+int is_range(double x, double a, double b) {
+    if ((x > a && x < b))
+        return 1;
+    else
+        return 0;
+}
+
+int main() {
+    double x;
+    double range = -2.5, range_2 = 3.5;
+    while (scanf("%lf", &x) == 1) {
+        if (is_range(x, range, range_2) != 1) printf("%.1lf ", x);
+    }
+    return 0;
+}*/
+
+/*#include <math.h>  //6.2.6 Объявление и вызов функций
+#include <stdio.h>
+
+double get_length(int num_1, int num_2) { return sqrt(pow(num_1, 2) + pow(num_2, 2)); }
+
+int main() {
+    int a, b;
+    if (scanf("%d%d", &a, &b) != 2) {
+        printf("n/a");
+        return 1;
+    }
+    printf("%.2lf", get_length(a, b));
+    return 0;
+}*/
+
+#include <stdio.h> //6.2.7 Объявление и вызов функций. Инструкция по завершению ввода: Нажмите комбинацию клавиш Ctrl+D.
+
+double get_qm(double qm_1, int m, int x) {
+    double m_double = (double)m;
+    double new_qm = ((m_double - 1.0) / m_double) * qm_1 + (1 / m_double * x);
+    return new_qm;
+}
+
+int main() {
+    int x;
+    int m = 1;
+    double qm = 0.0, qm_1 = 0.0;
+    while(scanf("%d", &x) == 1) {
+        qm_1 = qm;
+        qm = get_qm(qm_1, m, x);
+        m++;
+    }
+    printf("%.3lf", qm);
+    return 0;
+}
