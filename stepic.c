@@ -3014,7 +3014,8 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h> //6.2.7 Объявление и вызов функций. Инструкция по завершению ввода: Нажмите комбинацию клавиш Ctrl+D.
+/*#include <stdio.h> //6.2.7 Объявление и вызов функций. Инструкция по завершению ввода: Нажмите комбинацию
+клавиш Ctrl+D.
 
 double get_qm(double qm_1, int m, int x) {
     double m_double = (double)m;
@@ -3033,4 +3034,95 @@ int main() {
     }
     printf("%.3lf", qm);
     return 0;
+}*/
+
+/*#include <math.h>  //6.3.1 Прототипы функций
+#include <stdio.h>
+
+double get_geom(int a, int b);
+
+int main() {
+    int a, b;
+    scanf("%d, %d", &a, &b);
+    printf("%.2lf", get_geom(a, b));
+    return 0;
+}
+
+double get_geom(int a, int b) { return (double)sqrt(a * b); }*/
+
+/*#include <stdio.h>  //6.3.2 Прототипы функций
+
+int calc_rect(int w, int h, int type);
+
+int main() {
+    int a, b, t;
+    scanf("%d, %d, %d", &a, &b, &t);
+
+    printf("%d", calc_rect(a, b, t));
+    return 0;
+}
+
+int calc_rect(int w, int h, int type) {
+    if (type != 1)
+        return 2 * (w + h);
+    else
+        return w * h;
+}*/
+
+/*#include <stdio.h>  //6.3.3 Прототипы функций
+
+int get_max(int a, int b);
+int get_min(int a, int b);
+
+int main() {
+    int a, b, t;
+    scanf("%d, %d, %d", &a, &b, &t);
+    printf("%d", t == 1 ? get_max(a, b) : get_min(a, b));
+    return 0;
+}
+
+int get_max(int a, int b) { return a < b ? b : a; }
+
+int get_min(int a, int b) { return a > b ? b : a; }*/
+
+/*#include <math.h>  //6.3.4 Прототипы функций
+#include <stdio.h>
+#define PI 3.14159265358979323846
+
+double circle_len(double r);
+
+int main() {
+    double radius;
+    if (scanf("%lf", &radius) != 1) {
+        printf("n/a");
+        return 1;
+    }
+    printf("%.2lf", circle_len(radius));
+    return 0;
+}
+
+double circle_len(double r) { return 2 * PI * r; }*/
+
+#include <stdio.h>  //6.4.1 Указатели как параметры. Передача массивов в функции (До просмотра видео по теме)
+
+int sum_ar(int *n, int count);
+
+int main() {
+    int num[10] = {0};
+    int *ptr_num = num;
+    int i = 0;
+    while (scanf("%d", &num[i]) == 1) {
+        i++;
+    }
+    printf("%d", sum_ar(ptr_num, i));
+    return 0;
+}
+
+int sum_ar(int *n, int count) {
+    int sum = 0;
+    for (int i = 0; i < count; i++) {
+        sum += *n;
+        n++;
+    }
+    return sum;
 }
