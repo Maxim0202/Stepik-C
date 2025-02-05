@@ -3103,7 +3103,8 @@ int main() {
 
 double circle_len(double r) { return 2 * PI * r; }*/
 
-#include <stdio.h>  //6.4.1 Указатели как параметры. Передача массивов в функции (До просмотра видео по теме)
+/*#include <stdio.h>  //6.4.1 Указатели как параметры. Передача массивов в функции (До просмотра видео по
+теме)
 
 int sum_ar(int *n, int count);
 
@@ -3125,4 +3126,264 @@ int sum_ar(int *n, int count) {
         n++;
     }
     return sum;
+}*/
+
+/*#include <stdio.h>  //6.4.1 Указатели как параметры. Передача массивов в функции (после просмотра видео по
+теме)
+
+int sum_ar(int *n, int length);
+
+int main() {
+    int num[10] = {0};
+    int i = 0;
+    while (scanf("%d", &num[i]) == 1) {
+        i++;
+    }
+    printf("%d", sum_ar(num, sizeof(num) / sizeof(num[i])));
+    return 0;
 }
+
+int sum_ar(int *n, int length) {
+    int sum = 0;
+    for (int i = 0; i < length; i++) {
+        sum += n[i];
+    }
+    return sum;
+}*/
+
+/*#include <stdio.h>  //6.4.2 Указатели как параметры. Передача массивов в функции
+#define SIZE 20
+
+int prod_ar(const int *arr, int length) {
+    int r = 1;
+    for (int i = 0; i < length; i++) {
+        r *= arr[i];
+    }
+    return r;
+}
+
+int main() {
+    int arr_number[SIZE];
+    int res = 0;
+    int i = 0;
+    for (; scanf("%d", &arr_number[i]) == 1; i++) {
+    }
+    res = prod_ar(arr_number, i);
+    printf("%d", res);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //6.4.3 Указатели как параметры. Передача массивов в функции
+#include <string.h>
+#define SIZE 20
+
+int to_csv(char *str, double *arr_number, int length) {
+    int i = 0;
+    for (; i < length; i++) {
+        char buff[20] = {0};
+        if (i == 0) {
+            sprintf(str, "csv: %.2lf;", arr_number[i]);
+        } else if (i != length - 1) {
+            sprintf(buff, " %.2lf;", arr_number[i]);
+            strcat(str, buff);
+        } else {
+            sprintf(buff, " %.2lf", arr_number[i]);
+            strcat(str, buff);
+        }
+    }
+    return i;
+}
+
+int main() {
+    char str[100];
+    double arr_number[SIZE] = {0.0};
+    int count = 0;
+    for (; scanf("%lf", &arr_number[count]) == 1; count++) {
+    }
+    to_csv(str, arr_number, count);
+    puts(str);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //6.4.4 Указатели как параметры. Передача массивов в функции
+#include <stdlib.h>
+#include <string.h>
+
+#define SIZE 20
+
+int get_data_csv(double *number, int length, char *str);
+
+int main() {
+    char str[100] = {0};
+    double number[SIZE] = {0};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+
+    get_data_csv(number, SIZE, str);
+    for (int i = 0; number[i] != 0.0; i++) {
+        printf("%.2lf ", number[i]);
+    }
+    return 0;
+}
+
+int get_data_csv(double *number, int length, char *str) {
+    int count = 0;
+    for (; count < length; count++) {
+        char *ptr_buff = strstr(str, " ");
+        if (ptr_buff != NULL) {
+            number[count] = atof(ptr_buff);
+            str = ptr_buff + 1;
+        } else {
+            break;
+        }
+    }
+    return count;
+}*/
+
+/*#include <stdio.h>  //6.4.5 Указатели как параметры. Передача массивов в функции
+
+#define SIZE 4
+
+void transpose(short (*matrix)[SIZE]);
+
+int main() {
+    short matrix[SIZE][SIZE] = {0};
+    short* ptr = &matrix[0][0];
+    int count = 0;
+    while (count < SIZE * SIZE && scanf("%hd", ptr) == 1) {
+        ptr++;
+        count++;
+    }
+    transpose(matrix);
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (j < SIZE - 1)
+                printf("%d ", matrix[i][j]);
+            else
+                printf("%d", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+void transpose(short (*matrix)[SIZE]) {
+    short buff_matrix[SIZE][SIZE];
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            buff_matrix[i][j] = matrix[j][i];
+        }
+    }
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            matrix[i][j] = buff_matrix[i][j];
+        }
+    }
+}*/
+
+/*#include <stdio.h>  //6.4.6 Указатели как параметры. Передача массивов в функции
+
+#define SIZE 3
+
+void show_pole(char (*pole)[SIZE]);
+
+int main() {
+    char pole[SIZE][SIZE] = {0};
+    char* ptr_p = &pole[0][0];
+    int count = 0;
+    int val = 0;
+
+    while (count < SIZE * SIZE && scanf("%d", &val) == 1) {
+        *ptr_p = (val == 1) ? 'x' : (val == 2) ? 'o' : val;
+        ptr_p++;
+        count++;
+    }
+    show_pole(pole);
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (j != SIZE - 1)
+                printf("%c ", pole[i][j]);
+            else
+                printf("%c", pole[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+void show_pole(char (*pole)[SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (pole[i][j] == '\0') pole[i][j] = '#';
+        }
+    }
+}*/
+
+/*#include <stdio.h>  //6.4.7 Указатели как параметры. Передача массивов в функции
+
+#define SIZE 3
+
+int is_win(char (*ar)[SIZE]);
+
+int main() {
+    char pole[SIZE][SIZE] = {0};
+    char* ptr_p = &pole[0][0];
+    int count = 0;
+    int val = 0;
+    while (count < SIZE * SIZE && scanf("%d", &val) == 1) {
+        *ptr_p = (val == 1) ? 'x' : (val == 2) ? 'o' : val;
+        ptr_p++;
+        count++;
+    }
+    //switch (is_win(pole)) {
+    //    case 0:
+    //        printf("игра не окончена");
+    //        break;
+    //    case 1:
+    //        printf("выиграли \"крестики\"");
+    //        break;
+    //    case 2:
+    //        printf("выиграли \"нолики\"");
+    //        break;
+    //    case 3:
+    //        printf("ничья");
+    //        break;
+    //    default:
+    //        break;
+    //}
+    printf("%d", is_win(pole));
+    return 0;
+}
+
+int is_win(char (*ar)[SIZE]) {
+    int count_null = 0;
+    int flag = 0;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (ar[i][j] == '\0') count_null++;
+        }
+    }
+    for (int i = 0; i < SIZE; i++) {
+        if (ar[i][0] == 'x' && ar[i][0 + 1] == 'x' && ar[i][0 + 2] == 'x') flag = 1;
+    }
+    for (int j = 0; j < SIZE; j++) {
+        if (ar[0][j] == 'x' && ar[0 + 1][j] == 'x' && ar[0 + 2][j] == 'x') flag = 1;
+    }
+    if ((ar[0][0] == 'x' && ar[1][1] == 'x' && ar[2][2] == 'x') ||
+        (ar[0][2] == 'x' && ar[1][1] == 'x' && ar[2][0] == 'x'))
+        flag = 1;
+    for (int i = 0; i < SIZE; i++) {
+        if (ar[i][0] == 'o' && ar[i][0 + 1] == 'o' && ar[i][0 + 2] == 'o') flag = 2;
+    }
+    for (int j = 0; j < SIZE; j++) {
+        if (ar[0][j] == 'o' && ar[0 + 1][j] == 'o' && ar[0 + 2][j] == 'o') flag = 2;
+    }
+    if ((ar[0][0] == 'o' && ar[1][1] == 'o' && ar[2][2] == 'o') ||
+        (ar[0][2] == 'o' && ar[1][1] == 'o' && ar[2][0] == 'o'))
+        flag = 2;
+    if (count_null >= 5) flag = 0;
+    if (count_null == 0) flag = 3;
+    return flag;
+}*/
+
