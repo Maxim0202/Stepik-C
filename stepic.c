@@ -3387,3 +3387,330 @@ int is_win(char (*ar)[SIZE]) {
     return flag;
 }*/
 
+/*#include <stdio.h>  //6.5.1 Указатели на функцию. Функция как параметр (callback)
+double (*ptr_func)(int, int);
+
+int main() { return 0; }*/
+
+/*#include <stdio.h>  //6.5.2 Указатели на функцию. Функция как параметр (callback)
+
+double max_2(double a, double b) { return (a > b) ? a : b; }
+
+int main() {
+    double a, b;
+    scanf("%lf, %lf", &a, &b);
+    double (*ptr_max_2)(double, double) = max_2;
+    printf("%.1lf", ptr_max_2(a, b));
+    return 0;
+}*/
+
+/*#include <stdio.h>  //6.5.3 Указатели на функцию. Функция как параметр (callback) (программа рабочая, но
+на stepik тесты не пропускают реализацию с функцией strpbrk) #include <string.h>
+
+void copy_string(char* dst, size_t max_len_dst, const char* src, int (*ptr_find)(const char*));
+int find_symbol(const char* str);
+
+int main() {
+    char str[100] = {0}, str2[20];
+    fgets(str, sizeof(str) - 1, stdin);
+    char* ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+    size_t length = sizeof(str2) / sizeof(*str2) - 1;
+    copy_string(str2, length, str, find_symbol);
+    puts(str2);
+    return 0;
+}
+
+void copy_string(char* dst, size_t max_len_dst, const char* src, int (*ptr_find)(const char*)) {
+    size_t i = 0, j = 0;
+    for (; i < max_len_dst && src[j] != '\0'; j++) {
+        char temp[3] = {src[j], '\0'};
+        if (ptr_find(temp) != 1)
+            continue;
+        else
+            dst[i++] = src[j];
+    }
+    dst[i] = '\0';
+}
+
+int find_symbol(const char* str) {
+    char key[] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"};
+    if (strpbrk(str, key) != NULL)
+        return 0;
+    else
+        return 1;
+}*/
+
+/*#include <stdio.h>  //6.5.4 Указатели на функцию. Функция как параметр (callback)
+
+int sum_ar(const int *ar, size_t len_ar, int (*ptr_check)(int));
+int parity_check(int a);
+
+int main() {
+    int marks[20] = {0};
+    int x;
+    size_t i = 0;
+    while (scanf("%d", &x) == 1) {
+        if (i < sizeof(marks) / sizeof(*marks)) {
+            marks[i] = x;
+            i++;
+        } else {
+            break;
+        }
+    }
+    printf("%d", sum_ar(marks, sizeof(marks) / sizeof(*marks), parity_check));
+    return 0;
+}
+
+int sum_ar(const int *ar, size_t len_ar, int (*ptr_check)(int)) {
+    int sum = 0;
+    for (size_t i = 0; i < len_ar; i++) {
+        if (ptr_check(ar[i])) sum += ar[i];
+    }
+    return sum;
+}
+
+int parity_check(int a) {
+    if (a % 2 == 0)
+        return 1;
+    else
+        return 0;
+}*/
+
+/*#include <stdio.h>  //6.5.5 Указатели на функцию. Функция как параметр (callback)
+
+int is_odd(int a);       // возвращает 1 для нечетных значений и 0 для четных;
+int is_positive(int a);  // возвращает 1 для неотрицательных значений и 0 для отрицательных
+int is_negative(int a);  // возвращает 1 для отрицательных значений и 0 для неотрицательных
+int deflt(int a);        // возвращает 1 для любых значений
+int sum_ar(const int *ar, size_t len_ar, int (*ptr_func)(int));
+
+int main() {
+    int (*criterials[])(int) = {is_odd, is_positive, is_negative, deflt};
+    int marks[20] = {0};
+
+    int item = 0;
+    scanf("%d", &item);
+
+    int x;
+    int i = 0;
+    while (scanf("%d", &x) == 1) {
+        if (i < 20) {
+            marks[i] = x;
+            i++;
+        } else {
+            break;
+        }
+    }
+
+    int sum = 0;
+    switch (item) {
+        case 1:
+            sum = sum_ar(marks, sizeof(marks) / sizeof(*marks), criterials[0]);
+            break;
+        case 2:
+            sum = sum_ar(marks, sizeof(marks) / sizeof(*marks), criterials[1]);
+            break;
+        case 3:
+            sum = sum_ar(marks, sizeof(marks) / sizeof(*marks), criterials[2]);
+            break;
+        default:
+            sum = sum_ar(marks, sizeof(marks) / sizeof(*marks), criterials[3]);
+            break;
+    }
+
+    printf("%d", sum);
+    return 0;
+}
+
+int sum_ar(const int *ar, size_t len_ar, int (*ptr_func)(int)) {
+    int sum = 0;
+    for (size_t i = 0; i < len_ar; i++) {
+        if (ptr_func(ar[i])) sum += ar[i];
+    }
+    return sum;
+}
+
+int is_odd(int a) {
+    if (a % 2 == 0)
+        return 0;
+    else
+        return 1;
+}
+int is_positive(int a) {
+    if (a < 0)
+        return 0;
+    else
+        return 1;
+}
+int is_negative(int a) {
+    if (a > 0)
+        return 0;
+    else
+        return 1;
+}
+int deflt(int a) {
+    int flag = 0;
+    if (a <= 0 || a > 0) flag = 1;
+    return flag;
+}*/
+
+/*#include <ctype.h>  //6.5.6 Указатели на функцию. Функция как параметр (callback)
+#include <stdio.h>
+#include <string.h>
+
+int match_ab(const char a, const char b);
+void sort_string(char *str, size_t max_len, int (*crit)(char, char));
+
+int main() {
+    char str[100] = {0};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+
+    size_t length = strlen(str);
+    sort_string(str, length, match_ab);
+    puts(str);
+    return 0;
+}
+
+int match_ab(const char a, const char b) {
+    if (isdigit(a) && isdigit(b)) return a < b ? 1 : 0;
+    if (!(isdigit(a)) && !(isdigit(b))) return a < b ? 1 : 0;
+    return isdigit(a) ? 1 : 0;
+}
+
+void sort_string(char *str, size_t max_len, int (*crit)(char, char)) {
+    for (size_t i = 0; i < max_len && str[i] != 0; i++) {
+        for (size_t j = i + 1; j < max_len && str[j] != 0; j++) {
+            if (crit(str[i], str[j]) != 1) {
+                char temp = str[i];
+                str[i] = str[j];
+                str[j] = temp;
+            }
+        }
+    }
+}*/
+
+/*#include <stdio.h>  //6.5.7 Указатели на функцию. Функция как параметр (callback)
+
+int sum_big2(int a, int b, int c, int d);
+
+int main() {
+    int number[4];
+    int x;
+    for (int i = 0; i < 4; i++) {
+        scanf("%d", &x);
+        number[i] = x;
+    }
+    printf("%d", sum_big2(number[0], number[1], number[2], number[3]));
+    return 0;
+}
+
+int sum_big2(int a, int b, int c, int d) {
+    char num[4] = {a, b, c, d};
+    for (int i = 0; i < 4; i++) {
+        for (int j = i + 1; j < 4; j++) {
+            if (num[i] < num[j]) {
+                int temp = num[i];
+                num[i] = num[j];
+                num[j] = temp;
+            }
+        }
+    }
+    return num[0] + num[1];
+}*/
+
+/*#include <stdio.h>  //6.6.1 Стековый фрейм. Автоматические переменные
+#include <stdlib.h>
+#include <time.h>
+
+double norm(int a, int b);
+
+int main() {
+    int a = -2, b = 10;
+    double y = norm(a, b);
+    return 0;
+}
+
+double norm(int a, int b) {
+    double n = 100.;
+    srand(time(NULL));
+    double x_i = rand() % (b - a + 1) + a;
+    return (1 / n) * (x_i * n);
+}*/
+
+/*#include <stdio.h>  //6.6.2 Стековый фрейм. Автоматические переменные
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
+double norm(int a, int b);
+double reley(double x1, double x2);
+
+int main() {
+    double y = reley(norm(0, 5), norm(0, 5));
+    return 0;
+}
+
+double norm(int a, int b) {
+    double n = 100.;
+    srand(time(NULL));
+    double x_i = rand() % (b - a + 1) + a;
+    return (1 / n) * (x_i * n);
+}
+
+double reley(double x1, double x2) {
+    return sqrt(pow(x1, 2) + pow(x2, 2));
+}*/
+
+/*#include <stdio.h>  //6.6.3 Стековый фрейм. Автоматические переменные
+#define MAX_SIZE 20
+
+void reverse(short *ar, int count);
+
+int main() {
+    short digs[MAX_SIZE];
+    int count = 0;
+    while (count < MAX_SIZE && scanf("%hd", &digs[count]) == 1) count++;
+    reverse(digs, count);
+    for (int i = 0; i < count; i++) {
+        printf("%d ", digs[i]);
+    }
+    return 0;
+}
+
+void reverse(short *ar, int count) {
+    for (int i = 0, j = count - 1; i < count / 2; i++, j--) {
+        short temp = ar[i];
+        ar[i] = ar[j];
+        ar[j] = temp;
+    }
+}*/
+
+#include <stdio.h>  //6.6.4 Стековый фрейм. Автоматические переменные
+#include <string.h>
+
+void strip_str(char *str, char *ptr_symbol);
+
+int main() {
+    char str[100] = {0}, str2[20];
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+    char *ptr_str2 = str2;
+    strcpy(ptr_str2, ".,-!?");
+    strip_str(str, str2);
+    puts(str);
+    return 0;
+}
+
+void strip_str(char *str, char *ptr_symbol) {
+    char *ptr = strpbrk(str, ptr_symbol);
+    while (ptr != NULL) {
+        for (; *ptr != '\0'; ptr++) {
+            *ptr = *(ptr + 1);
+        }
+        ptr = strpbrk(str, ptr_symbol);
+    }
+}
