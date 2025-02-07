@@ -3688,7 +3688,7 @@ void reverse(short *ar, int count) {
     }
 }*/
 
-#include <stdio.h>  //6.6.4 Стековый фрейм. Автоматические переменные
+/*#include <stdio.h>  //6.6.4 Стековый фрейм. Автоматические переменные
 #include <string.h>
 
 void strip_str(char *str, char *ptr_symbol);
@@ -3713,4 +3713,63 @@ void strip_str(char *str, char *ptr_symbol) {
         }
         ptr = strpbrk(str, ptr_symbol);
     }
+}*/
+
+/*#include <stdio.h>  //6.7.1 Рекурсивные функции
+#define MAX_RECURSION 4
+
+void recursive(int a);
+
+int main() {
+    recursive(1);
+    return 0;
+}
+
+void recursive(int a) {
+    if (MAX_RECURSION > a) recursive(a + 1);
+    printf("%d ", a);
+}*/
+
+/*#include <stdio.h>  //6.7.2 Рекурсивные функции
+#define MAX_LENGTH 20
+
+size_t range_to_ar(int* ptr_a, size_t max_len, int from, int to, size_t count);
+
+int main() {
+    int max_rec;
+    int ar[MAX_LENGTH];
+    scanf("%d", &max_rec);
+
+    size_t cnt = range_to_ar(ar, MAX_LENGTH, 1, max_rec, 0);
+    for (size_t i = 0; i < cnt; i++) {
+        printf("%d ", ar[i]);
+    }
+    return 0;
+}
+
+size_t range_to_ar(int* ptr_a, size_t max_len, int from, int to, size_t count) {
+    if (count >= max_len || from > to) return count;
+    *ptr_a = from;
+    return range_to_ar(++ptr_a, max_len, from + 1, to, count + 1);
+}*/
+
+#include <stdio.h>
+#define MAX_LENGTH 20
+
+int sum_ar(const short* ar, size_t len, size_t indx);
+
+int main() {
+    short ar[MAX_LENGTH];
+    int count = 0;
+    while (count < MAX_LENGTH && scanf("%hd", &ar[count]) != EOF) count++;
+    int res = sum_ar(ar, count, 0);
+    printf("%d", res);
+    return 0;
+}
+
+int sum_ar(const short* ar, size_t len, size_t indx) {
+    int sum = 0;
+    if (indx < len) sum = sum_ar(ar, len, indx + 1);
+    sum += ar[indx];
+    return sum;
 }
