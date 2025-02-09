@@ -3753,7 +3753,7 @@ size_t range_to_ar(int* ptr_a, size_t max_len, int from, int to, size_t count) {
     return range_to_ar(++ptr_a, max_len, from + 1, to, count + 1);
 }*/
 
-#include <stdio.h>
+/*#include <stdio.h>  //6.7.3 Рекурсивные функции
 #define MAX_LENGTH 20
 
 int sum_ar(const short* ar, size_t len, size_t indx);
@@ -3772,4 +3772,77 @@ int sum_ar(const short* ar, size_t len, size_t indx) {
     if (indx < len) sum = sum_ar(ar, len, indx + 1);
     sum += ar[indx];
     return sum;
+}*/
+
+/*#include <stdio.h>  //6.7.3 Рекурсивные функции
+#define MAX_LENGTH 20
+
+size_t to_flat(short* v, size_t max_len_v, short* table[], size_t len, size_t count_v, size_t indx_t,
+               size_t indx)
+
+{
+    if (count_v >= max_len_v || indx_t >= len) {
+        return count_v;
+    }
+    if (table[indx_t][indx] != 0) {
+        v[count_v++] = table[indx_t][indx];
+    } else {
+        return to_flat(v, max_len_v, table, len, count_v, indx_t + 1, 0);
+    }
+    return to_flat(v, max_len_v, table, len, count_v, indx_t, indx + 1);
+}
+
+int main() {
+    short ar_1[] = {-4, 2, 3, 7, 0};
+    short ar_2[] = {11, 6, 10, 8, 13, 98, -5, 0};
+    short ar_3[] = {-47, 0};
+    short ar_4[] = {8, 11, 56, -3, -2, 0};
+
+    short* table[] = {ar_1, ar_4, ar_3, ar_2};
+
+    short flat[MAX_LENGTH];
+
+    size_t cnt = to_flat(flat, MAX_LENGTH, table, sizeof(table) / sizeof(*table), 0, 0, 0);
+
+    for (size_t i = 0; i < cnt; ++i) printf("%d ", flat[i]);
+
+    return 0;
+}*/
+
+#include <ctype.h>  //6.7.4 Рекурсивные функции
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void encoding(char *str, char *res, char *symbols, const char *morze[]);
+
+int main() {
+    char str[100] = {0};
+    char res[500];
+    char symbols[] = "AJS2BKT3CLU4DMV5ENW6FOX7GPY8HQZ9IR10 ";
+    const char *morze[] = {".-",   ".---", "...",   "..---", "-...", "-.-",  "-",    "...--",
+                           "-.-.", ".-..", "..-",   "....-", "-..",  "--",   "...-", ".....",
+                           ".",    "-.",   ".--",   "-....", "..-.", "---",  "-..-", "--...",
+                           "--.",  ".--.", "-.--",  "---..", "....", "--.-", "--..", "----.",
+                           "..",   ".-.",  ".----", "-----", "-...-"};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+
+    encoding(str, res, symbols, morze);
+    puts(res);
+    return 0;
+}
+
+void encoding(char *str, char *res, char *symbols, const char *morze[]) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        char c = str[i];
+        if (str[i] == ' ') {
+            strcat(res, "-...-");
+        } else {
+            int index = strchr(symbols, toupper(c)) - symbols;
+            strcat(res, morze[index]);
+        }
+        strcat(res, " ");
+    }
 }
