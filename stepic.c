@@ -3809,7 +3809,7 @@ int main() {
     return 0;
 }*/
 
-#include <ctype.h>  //6.7.4 Рекурсивные функции
+/*#include <ctype.h>  //6.7.4 Рекурсивные функции
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -3845,4 +3845,219 @@ void encoding(char *str, char *res, char *symbols, const char *morze[]) {
         }
         strcat(res, " ");
     }
+}*/
+
+/*#include <stdio.h>  //6.7.5 Рекурсивные функции
+#include <stdlib.h>
+#include <string.h>
+
+#define MORZE_LENGTH 37
+
+void encoding(char *str, char *res, char *symbols, const char *morze[]);
+
+int main() {
+    char str[100] = {0};
+    char res[500];
+    char symbols[MORZE_LENGTH] = {'A', 'J', 'S', '2', 'B', 'K', 'T', '3', 'C', 'L', 'U', '4', 'D',
+                                  'M', 'V', '5', 'E', 'N', 'W', '6', 'F', 'O', 'X', '7', 'G', 'P',
+                                  'Y', '8', 'H', 'Q', 'Z', '9', 'I', 'R', '1', '0', ' '};
+    const char *morze[MORZE_LENGTH] = {".-",   ".---", "...",   "..---", "-...", "-.-",  "-",    "...--",
+                                       "-.-.", ".-..", "..-",   "....-", "-..",  "--",   "...-", ".....",
+                                       ".",    "-.",   ".--",   "-....", "..-.", "---",  "-..-", "--...",
+                                       "--.",  ".--.", "-.--",  "---..", "....", "--.-", "--..", "----.",
+                                       "..",   ".-.",  ".----", "-----", "-...-"};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+
+    encoding(str, res, symbols, morze);
+    puts(res);
+    return 0;
+}
+
+void encoding(char *str, char *res, char *symbols, const char *morze[]) {
+    char *token = strtok(str, " ");
+    while (token != NULL) {
+        for (int i = 0; i < MORZE_LENGTH; i++) {
+            char temp[10];
+            strcpy(temp, morze[i]);
+            if (strcmp(temp, token) == 0) {
+                char temp_2[2] = {symbols[i], '\0'};
+                strcat(res, temp_2);
+                break;
+            }
+        }
+        token = strtok(NULL, " ");
+    }
+}*/
+
+/*#include <stdarg.h>  //6.8.1 Функции с произвольным числом параметров
+#include <stdio.h>
+
+double mean(int total, ...) {
+    int sum = 0;
+    double res = 0;
+    va_list arg;
+    va_start(arg, total);
+    for (int i = 0; i < total; i++) {
+        sum += va_arg(arg, int);
+    }
+    va_end(arg);
+    res = (double)sum / total;
+    return res;
+}
+
+int main() {
+    double res = mean(7, 5, -10, 11, 0, 12, 4, 2);
+    printf("%.2lf", res);
+    return 0;
+}*/
+
+/*#include <math.h>  //6.8.2 Функции с произвольным числом параметров
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
+
+double v_norm2(char *str, ...) {
+    double res = 0.0;
+    int count = 0;
+    if (strcmp(str, "vector2") == 0) {
+        count = 2;
+    } else if (strcmp(str, "vector3") == 0) {
+        count = 3;
+    } else if (strcmp(str, "vector4") == 0) {
+        count = 4;
+    } else {
+        return 0.0;
+    }
+    va_list arg;
+    va_start(arg, str);
+
+    for (int i = 0; i < count; i++) {
+        res += pow(va_arg(arg, double), 2);
+    }
+    va_end(arg);
+    return res;
+}
+
+int main() {
+    double res = v_norm2("vector2", 1.0, 2.0);
+    printf("%.1lf", res);
+    return 0;
+}*/
+
+/*#include <stdarg.h>  //6.8.3 Функции с произвольным числом параметров
+#include <stdio.h>
+
+double sumf(const char* format, ...);
+
+int main() {
+    double res = sumf("++ + +", 1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
+    printf("%.2f ", res);
+
+    return 0;
+}
+
+double sumf(const char* format, ...) {
+    double sum = 0.0;
+    int count = 0;
+    const char* ptr_symbol = format;
+    va_list arg;
+    va_start(arg, format);
+    while (*ptr_symbol != '\0') {
+        if (*ptr_symbol != '+') {
+            va_arg(arg, double);
+            ptr_symbol++;
+            continue;
+        } else {
+            count++;
+            for (int i = 0; i < count; i++) {
+                sum += va_arg(arg, double);
+                count--;
+            }
+            ptr_symbol++;
+        }
+    }
+    va_end(arg);
+    return sum;
+}*/
+
+/*#include <stdarg.h>  //6.8.4 Функции с произвольным числом параметров
+#include <stdio.h>
+
+void ar_fill(double *str, size_t count, ...);
+
+int main() {
+    double weights[10] = {0};
+    ar_fill(weights, 5, 0.1, 0.2, 0.3, 0.4, 0.5);
+    return 0;
+}
+
+void ar_fill(double *str, size_t count, ...) {
+    va_list arg;
+    va_start(arg, count);
+    for (size_t i = 0; i < count; i++) {
+        str[i] = va_arg(arg, double);
+    }
+    va_end(arg);
+}*/
+
+/*#include <stdarg.h>  //6.8.5 Функции с произвольным числом параметров
+#include <stdio.h>
+
+void ar_scan(double *str, size_t n, ...);
+
+int main() {
+    double weights[40] = {1.25, 4.34, -5.43, 0.01, -0.8};
+    double w1, w2, w3;
+    ar_scan(weights, 3, &w1, &w2, &w3);
+
+    printf("%.2f %.2f %.2f", w1, w2, w3);
+
+    return 0;
+}
+
+void ar_scan(double *str, size_t n, ...) {
+    va_list arg;
+    va_start(arg, n);
+    for (size_t i = 0; i < n; i++) {
+        double *ptr_number = va_arg(arg, double *);
+        *ptr_number = str[i];
+    }
+    va_end(arg);
+}*/
+
+#include <stdio.h>  //6.8.6 Функции с произвольным числом параметров
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 20
+
+int get_data_csv(double *arr, int length, char *str);
+
+int main() {
+    char str[100] = {0};
+    double arr[MAX_SIZE] = {0};
+    fgets(str, sizeof(str) - 1, stdin);
+    char *ptr_n = strrchr(str, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+
+    for (int i = 0; i < get_data_csv(arr, MAX_SIZE, str); i++) {
+        printf("%.2lf ", arr[i]);
+    }
+    return 0;
+}
+
+int get_data_csv(double *arr, int length, char *str) {
+    int count = 0;
+    char *ptr_number = strchr(str, ' ');
+    while (ptr_number != NULL) {
+        if (ptr_number != NULL && count < length) {
+            arr[count++] = atof(ptr_number);
+            ptr_number = strchr(ptr_number + 1, ' ');
+        } else {
+            break;
+        }
+    }
+    return count;
 }
