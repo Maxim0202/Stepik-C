@@ -4027,7 +4027,7 @@ void ar_scan(double *str, size_t n, ...) {
     va_end(arg);
 }*/
 
-#include <stdio.h>  //6.8.6 Функции с произвольным числом параметров
+/*#include <stdio.h>  //6.8.6 Функции с произвольным числом параметров
 #include <stdlib.h>
 #include <string.h>
 
@@ -4060,4 +4060,142 @@ int get_data_csv(double *arr, int length, char *str) {
         }
     }
     return count;
+}*/
+
+/*#include <stdio.h>  //7.1.1 Локальные и глобальные переменные
+
+int is_positive(int num) {
+    if (num >= 0)
+        return 1;
+    else
+        return 0;
+}
+
+int main() {
+    int x;
+    while (scanf("%d", &x) == 1) {
+        if (is_positive(x)) printf("%d ", x);
+    }
+
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.1.2 Локальные и глобальные переменные
+
+int is_positive(int num);
+double mean_ar(const int *ar, size_t len_ar, int (*ptr_func)(int));
+
+int main() {
+    int marks[20] = {0};
+    int x;
+    int i = 0;
+    size_t len_ar = sizeof(marks) / sizeof(marks[0]);
+    while (scanf("%d", &x) == 1) {
+        marks[i++] = x;
+    }
+
+    printf("%.1lf", mean_ar(marks, len_ar, is_positive));
+    return 0;
+}
+
+double mean_ar(const int *ar, size_t len_ar, int (*ptr_func)(int)) {
+    double sum = 0.0;
+    int count = 0;
+    for (size_t i = 0; i < len_ar; i++) {
+        if (ptr_func(ar[i])) {
+            sum += ar[i];
+            count++;
+        }
+    }
+    return sum / count;
+}
+
+int is_positive(int num) {
+    if (num >= 1 && num <= 5)
+        return 1;
+    else
+        return 0;
+}*/
+
+/*#include <stdio.h>  //7.2.1 Локальные и глобальные переменные
+
+int main() {
+    int number = 0;
+    if (scanf("%d", &number) != 1) {
+        printf("n/a");
+        return 0;
+    }
+    for (int divider = 1; divider <= number; divider++) {
+        if (number % divider == 0) printf("%d ", divider);
+    }
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.2.2 Локальные и глобальные переменные
+
+int main() {
+    int n;
+    if (scanf("%d", &n) != 1) {
+        printf("n/a");
+        return 1;
+    }
+    int temp = n;
+    for (int i = 2; i <= temp; i++) {
+        if ((temp % i) > 0) {
+            continue;
+        }
+        if (temp % i == 1) {
+            break;
+        }
+        if (temp % i == 0) {
+            printf("%d ", i);
+            temp /= i;
+            i--;
+        }
+    }
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.2.3 Локальные и глобальные переменные
+
+int main() {
+    int n, m;
+    int sum = 0;
+    scanf("%d%d", &n, &m);
+    for (int i = 0; i <= n; i++) {
+        int flag;
+        for (int j = 0; j <= m; j++) {
+            flag = i + j;
+            if ((flag) >= 20)
+                break;
+            else
+                sum += (flag);
+        }
+        if ((flag) >= 20) break;
+    }
+    printf("%d", sum);
+    return 0;
+}*/
+
+#include <stdio.h>
+
+int range() {
+    static int start = 5;
+    if (start == 5) {
+        return start;
+    } else {
+        start += 3;
+        return start;
+    }
+}
+
+int main() {
+    printf("%d ", range());
+    printf("%d ", range());
+    printf("%d ", range());
+    printf("%d ", range());
+    printf("%d ", range());
+    printf("%d ", range());
+    printf("%d", range());
+    return 0;
 }
