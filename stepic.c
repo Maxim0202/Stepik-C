@@ -4177,25 +4177,168 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h>
+/*#include <stdio.h>  //7.3.1 Ключевые слова static и extern
+#define START 5
 
 int range() {
     static int start = 5;
-    if (start == 5) {
-        return start;
-    } else {
-        start += 3;
-        return start;
-    }
+    start += 3;
+    return start;
 }
 
 int main() {
-    printf("%d ", range());
+    int first = START;
+    printf("%d ", first);
     printf("%d ", range());
     printf("%d ", range());
     printf("%d ", range());
     printf("%d ", range());
     printf("%d ", range());
     printf("%d", range());
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.3.2 Ключевые слова static и extern
+
+int range(int start, int stop, int step);
+
+int main() {
+    int start, stop, step;
+    scanf("%d %d %d", &start, &stop, &step);
+
+    for (int i = 0; i < 20; ++i) printf("%d ", range(start, stop, step));
+
+    return 0;
+}
+
+int range(int start, int stop, int step) {
+    static int current;
+    if (current == 0) {
+        current = start;
+    }
+    if (current > stop) {
+        current = start;
+    }
+    int result = current;
+    current += step;
+    return result;
+}*/
+
+/*#include <stdio.h>  // 7.4.1 Функции malloc(), free(), calloc(), realloc(), memcpy()
+
+#include <stdlib.h>
+
+int main() {
+    short *data = malloc(sizeof(short) * 4);
+    data[0] = -4;
+    data[1] = 3;
+    data[2] = 0;
+    data[3] = 100;
+    free(data);
+    return 0;
+}*/
+
+/*#include <stdio.h>  // 7.4.2 Функции malloc(), free(), calloc(), realloc(), memcpy()
+#include <stdlib.h>
+
+#define MAX 20
+
+int main() {
+    double digits[MAX] = {0};
+    double num = 0;
+    int count = 0;
+    while (scanf("%lf", &num) == 1 && count < MAX) {
+        digits[count] = num;
+        count++;
+    }
+    double *ptr_d = malloc(sizeof(double) * count);
+    for (int i = 0; i < count; i++) {
+        ptr_d[i] = digits[i];
+    }
+    free(ptr_d);
+    return 0;
+}*/
+
+/*#include <stdio.h>  // 7.4.3 Функции malloc(), free(), calloc(), realloc(), memcpy()
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 20
+
+int main() {
+    int lengths[MAX];
+    int count = 0;
+    while ((scanf("%d", &lengths[count]) == 1) && count < MAX) {
+        count++;
+    }
+    int *ptr_lens = calloc(MAX, sizeof(int));
+    memcpy(ptr_lens, lengths, sizeof(int) * count);
+
+    for (int i = 0; i < MAX; i++) {
+        printf("%d ", ptr_lens[i]);
+    }
+    free(ptr_lens);
+    return 0;
+}*/
+
+/*#include <stdio.h>  // 7.4.4 Функции malloc(), free(), calloc(), realloc(), memcpy()
+#include <stdlib.h>
+
+#define TOTAL 10
+
+void* expand_array(short* ptr, size_t* len, short fill);
+
+int main() {
+    short* ptr_d = calloc(TOTAL, sizeof(short));
+    size_t len = TOTAL;
+    if (ptr_d == NULL) return 0;
+
+    int count = 0;
+    while (count < TOTAL && scanf("%hd", &ptr_d[count]) == 1) count++;
+    short* ptr_temp = expand_array(ptr_d, &len, -1);
+    ptr_d = ptr_temp;
+    for (size_t i = 0; i < len; i++) {
+        printf("%d ", ptr_d[i]);
+    }
+    free(ptr_d);
+    return 0;
+}
+
+void* expand_array(short* ptr, size_t* len, short fill) {
+    ptr = realloc(ptr, sizeof(short) * *len * 2);
+    for (size_t i = *len; i < *len * 2; i++) {
+        ptr[i] = fill;
+    }
+    *len = *len * 2;
+    return ptr;
+}*/
+
+#include <stdio.h>  // 7.4.5 Функции malloc(), free(), calloc(), realloc(), memcpy()
+#include <stdlib.h>
+#include <string.h>
+
+void get_ln(char* buffer, size_t max_len) {
+    fgets(buffer, max_len - 1, stdin);
+    char* ptr_n = strrchr(buffer, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+}
+
+char* merge_string(const char* str1, const char* str2) {
+    char* ptr_ar = malloc(sizeof(str2) + sizeof(str1) + 1);
+    memcpy(ptr_ar, str1, strlen(str1));
+    memcpy(ptr_ar + strlen(str1), str2, strlen(str2));
+    return ptr_ar;
+}
+
+int main() {
+    char str_1[200] = {0};
+    char str_2[200] = {0};
+
+    get_ln(str_1, sizeof(str_1));
+    get_ln(str_2, sizeof(str_2));
+
+    char* new_ptr = merge_string(str_1, str_2);
+    puts(new_ptr);
+    free(new_ptr);
     return 0;
 }
