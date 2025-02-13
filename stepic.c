@@ -4313,7 +4313,7 @@ void* expand_array(short* ptr, size_t* len, short fill) {
     return ptr;
 }*/
 
-#include <stdio.h>  // 7.4.5 Функции malloc(), free(), calloc(), realloc(), memcpy()
+/*#include <stdio.h>  // 7.4.5 Функции malloc(), free(), calloc(), realloc(), memcpy()
 #include <stdlib.h>
 #include <string.h>
 
@@ -4341,4 +4341,123 @@ int main() {
     puts(new_ptr);
     free(new_ptr);
     return 0;
+}*/
+
+/*#include <stdio.h>  //7.5.1 Перечисления (enum). Директива typedef
+
+enum menu_item { item_exit = 1, item_c = 2, item_python = 3, item_java = 4 };
+
+int main() {
+    int flag;
+    scanf("%d", &flag);
+    enum menu_item key = flag;
+    if (key == item_exit || key == item_c || key == item_python || key == item_java) {
+        switch (key) {
+            case item_exit:
+                puts("Выход");
+                break;
+            case item_c:
+                puts("Язык Си");
+                break;
+            case item_python:
+                puts("Язык Python");
+                break;
+            case item_java:
+                puts("Язык Java");
+                break;
+            default:
+                break;
+        }
+    } else {
+        puts("Не верный пункт меню");
+    }
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.5.2 Перечисления (enum). Директива typedef
+
+enum calc_types { _perimetr = 1, _square = 2 };
+
+double calc_rect(double width, double height, enum calc_types type);
+
+int main() {
+    int key;
+    double w, h;
+    scanf("%d%lf%lf", &key, &w, &h);
+    enum calc_types first_key = key;
+    printf("%.1lf", calc_rect(w, h, first_key));
+    return 0;
+}
+
+double calc_rect(double width, double height, enum calc_types type) {
+    double res = 0.;
+    switch (type) {
+        case _perimetr:
+            res = 2 * (width + height);
+            break;
+        case _square:
+            res = width * height;
+            break;
+        default:
+            break;
+    }
+    return res;
+}*/
+
+/*#include <stdio.h>  //7.5.3 Перечисления (enum). Директива typedef
+
+typedef enum { _do = 1, _re = 2, _mi = 3, _fa = 4, _sol = 5, _la = 6, _si = 7 } NOTES;
+
+int get_major(NOTES a);
+
+int main() {
+    int a, b, c, d, f;
+    scanf("%d%d%d%d%d", &a, &b, &c, &d, &f);
+    if (get_major(a)) printf("%d ", a);
+    if (get_major(b)) printf("%d ", b);
+    if (get_major(c)) printf("%d ", c);
+    if (get_major(d)) printf("%d ", d);
+    if (get_major(f)) printf("%d ", f);
+    return 0;
+}
+
+int get_major(NOTES a) {
+    if (a == _do || a == _mi || a == _sol)
+        return 1;
+    else
+        return 0;
+}*/
+
+#include <stdio.h>  //7.5.4 Перечисления (enum). Директива typedef
+#include <string.h>
+
+typedef int (*FUNC_CORRECT)(char);
+
+int is_correct(const char* str);
+int get_correct_words(const char (*words)[50], int count_words, FUNC_CORRECT filter);
+
+int main() {
+    char input[300] = {0};
+    char words[20][50] = {0};
+    int count = 0;
+    fgets(input, sizeof(input)- 1, stdin);
+    char *ptr_n = strchr(input, '\n');
+    if (ptr_n != NULL) {
+        *ptr_n = '\0';
+    }
+
+    char *token = strtok(input, " ");
+    while (token != NULL && count < 20) {
+        strcat(words[count], token);
+        count++;
+        token = strtok(NULL, " ");
+    }
+    return 0;
+}
+
+int is_correct(const char* str) {
+
+}
+int get_correct_words(const char (*words)[50], int count_words, FUNC_CORRECT filter) {
+
 }
