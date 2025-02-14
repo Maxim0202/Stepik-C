@@ -4428,36 +4428,197 @@ int get_major(NOTES a) {
         return 0;
 }*/
 
-#include <stdio.h>  //7.5.4 Перечисления (enum). Директива typedef
+/*#include <ctype.h>  //7.5.4 Перечисления (enum). Директива typedef
+#include <stdio.h>
 #include <string.h>
 
-typedef int (*FUNC_CORRECT)(char);
+typedef int (*FUNC_CORRECT)(const char *);
 
-int is_correct(const char* str);
+int is_correct(const char *str);
 int get_correct_words(const char (*words)[50], int count_words, FUNC_CORRECT filter);
 
 int main() {
     char input[300] = {0};
     char words[20][50] = {0};
     int count = 0;
-    fgets(input, sizeof(input)- 1, stdin);
+    fgets(input, sizeof(input) - 1, stdin);
     char *ptr_n = strchr(input, '\n');
     if (ptr_n != NULL) {
         *ptr_n = '\0';
     }
 
+    for (int i = 0; input[i] != '\0'; i++) {
+        input[i] = tolower(input[i]);
+    }
     char *token = strtok(input, " ");
     while (token != NULL && count < 20) {
         strcat(words[count], token);
         count++;
         token = strtok(NULL, " ");
     }
+    FUNC_CORRECT func = is_correct;
+    printf("%d", get_correct_words(words, count, func));
     return 0;
 }
 
-int is_correct(const char* str) {
-
-}
 int get_correct_words(const char (*words)[50], int count_words, FUNC_CORRECT filter) {
+    int count = 0;
+    for (int i = 0; i < count_words; i++) {
+        if (filter(words[i])) count++;
+    }
+    return count;
+}
 
+int is_correct(const char *str) {
+    char *ptr_search = strstr(str, "ra");
+    if (ptr_search != NULL)
+        return 1;
+    else
+        return 0;
+}*/
+
+/*#include <stdio.h>  //7.6.1 Структуры. Вложенные структуры
+
+struct tag_vector {
+    short x;
+    short y;
+    short z;
+};
+
+int main() {
+    struct tag_vector vector;
+    scanf("%hd%hd%hd", &vector.x, &vector.y, &vector.z);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.6.2, 3 Структуры. Вложенные структуры
+
+
+struct tag_price {
+    char name[100];
+    unsigned int rubs;
+    unsigned short kops;
+    unsigned int foreign_key;
+};
+
+
+int main() {
+    struct tag_price pr;
+    pr = price_100;
+    printf("%s %u %hu %u", pr.name, pr.rubs, pr.kops, pr.foreign_key);
+    return 0;
+}*/
+
+/*#include <stdio.h>   //7.6.3 Структуры. Вложенные структуры
+#include <string.h>
+
+struct tag_fio {
+    char firstname[50];
+    char otch[50];
+    char lastname[50];
+};
+struct tag_student {
+    struct tag_fio fio;
+    short old;
+    short height;
+    short weight;
+};
+
+void getline(char* buffer, size_t max_len) {
+    fgets(buffer, max_len - 1, stdin);
+    char* ptr_n = strrchr(buffer, '\n');
+    if (ptr_n != NULL) *ptr_n = '\0';
+}
+
+int main() {
+    char fname[50], otch[50], lname[50];  // имя, отчество, фамилия
+    short old, height, weight;            // возраст, высота, вес
+
+    getline(fname, sizeof(fname));
+    getline(otch, sizeof(otch));
+    getline(lname, sizeof(lname));
+
+    scanf("%hd, %hd, %hd", &old, &height, &weight);
+
+    struct tag_student st = {.fio = {"", "", ""}, .old = old, .height = height, .weight = weight};
+
+    strcpy(st.fio.firstname, fname);
+    strcpy(st.fio.otch, otch);
+    strcpy(st.fio.lastname, lname);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.6.4 Структуры. Вложенные структуры
+
+struct tag_time {
+    unsigned char hours;
+    unsigned char minutes;
+    unsigned char seconds;
+};
+
+int main() {
+    struct tag_time tm1;
+    struct tag_time tm2;
+    scanf("%hhu%hhu%hhu%hhu%hhu%hhu", &tm1.hours, &tm1.minutes, &tm1.seconds, &tm2.hours, &tm2.minutes,
+          &tm2.seconds);
+    struct tag_time tm_sum;
+    tm_sum.hours = tm1.hours + tm2.hours;
+    tm_sum.minutes = tm1.minutes + tm2.minutes;
+    tm_sum.seconds = tm1.seconds + tm2.seconds;
+
+    if (tm_sum.seconds > 59) {
+        tm_sum.seconds = tm_sum.seconds % 60;
+        tm_sum.minutes += 1;
+    }
+    if (tm_sum.minutes > 59) {
+        tm_sum.minutes = tm_sum.minutes % 60;
+        tm_sum.hours += 1;
+    }
+    if (tm_sum.hours > 24) {
+        tm_sum.hours = tm_sum.hours % 24;
+    }
+    printf("%02d:%02d:%02d", tm_sum.hours, tm_sum.minutes, tm_sum.seconds);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.6.5 Структуры. Вложенные структуры
+
+enum { total_points = 100 };
+
+struct tag_point_3d {
+    int x;
+    int y;
+    int z;
+};
+
+int main() {
+    struct tag_point_3d points[total_points];
+    int total = 0;
+    int i = 0;
+    for (; i < total_points; i++) {
+        if (scanf("%d%d%d", &points[i].x, &points[i].y, &points[i].z) == 3) {
+            total += 3;
+        } else {
+            i--;
+            break;
+        }
+    }
+    printf("%d %d %d", points[i].x, points[i].y, points[i].z);
+
+    return 0;
+}*/
+
+#include <stdio.h>  //7.7.1 Указатели на структуры. Передача структур в функции
+
+struct tag_geom {
+    char type;
+    int x0, y0;
+    int x1, y1;
+};
+
+int main() {
+    struct tag_geom geom = {.type = 1, .x0 = 10, .y0 = 20, .x1 = 50, .y1 = 30};
+    struct tag_geom* ptr_geom = &geom;
+    printf("%d %d %d %d %d", ptr_geom->type, ptr_geom->x0, ptr_geom->y0, ptr_geom->x1, ptr_geom->y1);
+    return 0;
 }
