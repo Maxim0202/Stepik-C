@@ -4608,7 +4608,7 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h>  //7.7.1 Указатели на структуры. Передача структур в функции
+/*#include <stdio.h>  //7.7.1 Указатели на структуры. Передача структур в функции
 
 struct tag_geom {
     char type;
@@ -4621,4 +4621,105 @@ int main() {
     struct tag_geom* ptr_geom = &geom;
     printf("%d %d %d %d %d", ptr_geom->type, ptr_geom->x0, ptr_geom->y0, ptr_geom->x1, ptr_geom->y1);
     return 0;
+}*/
+
+/*#include <stdio.h>  //7.7.2 Указатели на структуры. Передача структур в функции
+#include <stdlib.h>
+
+struct tag_rub {
+    double ratio_usd;
+    int rubs;
+};
+
+int main() {
+    struct tag_rub* account_r = malloc(sizeof(struct tag_rub));
+    account_r->ratio_usd = 91.32;
+    scanf("%d", &account_r->rubs);
+    printf("%.2lf", account_r->rubs / account_r->ratio_usd);
+    free(account_r);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.7.3 Указатели на структуры. Передача структур в функции
+
+typedef struct {
+    double re;  // действительная часть
+    double im;  // мнимая часть
+} COMPLEX;
+
+COMPLEX complex_sum(COMPLEX, COMPLEX);
+
+int main() {
+    COMPLEX cmp_1;
+    COMPLEX cmp_2;
+    scanf("%lf%lf%lf%lf", &cmp_1.re, &cmp_1.im, &cmp_2.re, &cmp_2.im);
+    COMPLEX res = complex_sum(cmp_1, cmp_2);
+    return 0;
+}
+
+COMPLEX complex_sum(COMPLEX a, COMPLEX b) {
+    COMPLEX res = {a.re + b.re, a.im + b.im};
+    return res;
+}*/
+
+/*#include <stdio.h>  //7.7.4 Указатели на структуры. Передача структур в функции
+#include <stdlib.h>
+
+typedef struct tag_point {
+    int x;
+    int y;
+} POINT;
+
+int rect_square(POINT* a, POINT* b);
+
+int main() {
+    POINT* a = malloc(sizeof(POINT));
+    POINT* b = malloc(sizeof(POINT));
+    scanf("%d%d%d%d", &a->x, &a->y, &b->x, &b->y);
+    printf("%d", rect_square(a, b));
+    free(a);
+    free(b);
+    return 0;
+}
+
+int rect_square(POINT* a, POINT* b) { return (b->x - a->x) * (b->y - a->y); }*/
+
+#include <stdio.h>
+#define MAX_SIZE 20
+
+typedef struct tag {
+    int x;
+    int y;
+} POINT;
+
+typedef struct tag_2 {
+    double mean_x;
+    double mean_y;
+} DATA;
+
+DATA get_means(POINT* arr, int size);
+
+int main() {
+    POINT points[MAX_SIZE] = {0};
+    int length = 0;
+    for (; length < MAX_SIZE; length++) {
+        if (scanf("%d%d%d%d", &points[length].x, &points[length].y, &points[length + 1].x,
+                  &points[length + 1].y) == 4)
+            length++;
+        else
+            break;
+    }
+    DATA result = get_means(points, length);
+    printf("%.2lf %.2lf", result.mean_x, result.mean_y);
+    return 0;
+}
+
+DATA get_means(POINT* arr, int size) {
+    DATA res;
+    for (int i = 0; i < size; i++) {
+        res.mean_x = (arr[i].x + arr[i + 1].x) / 2;
+        res.mean_y = (arr[i].y + arr[i + 1].y) / 2;
+        i++;
+    }
+    return res;
 }
