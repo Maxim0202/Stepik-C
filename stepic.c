@@ -4684,7 +4684,7 @@ int main() {
 
 int rect_square(POINT* a, POINT* b) { return (b->x - a->x) * (b->y - a->y); }*/
 
-#include <stdio.h>
+/*#include <stdio.h>  //7.7.5 Указатели на структуры. Передача структур в функции
 #define MAX_SIZE 20
 
 typedef struct tag {
@@ -4702,12 +4702,8 @@ DATA get_means(POINT* arr, int size);
 int main() {
     POINT points[MAX_SIZE] = {0};
     int length = 0;
-    for (; length < MAX_SIZE; length++) {
-        if (scanf("%d%d%d%d", &points[length].x, &points[length].y, &points[length + 1].x,
-                  &points[length + 1].y) == 4)
-            length++;
-        else
-            break;
+    while (scanf("%d%d", &points[length].x, &points[length].y) == 2 && length < MAX_SIZE) {
+        length++;
     }
     DATA result = get_means(points, length);
     printf("%.2lf %.2lf", result.mean_x, result.mean_y);
@@ -4716,10 +4712,355 @@ int main() {
 
 DATA get_means(POINT* arr, int size) {
     DATA res;
-    for (int i = 0; i < size; i++) {
-        res.mean_x = (arr[i].x + arr[i + 1].x) / 2;
-        res.mean_y = (arr[i].y + arr[i + 1].y) / 2;
-        i++;
+    double sum_x = 0.0;
+    double sum_y = 0.0;
+    for (int i = 0; i <= size; i++) {
+        sum_x += arr[i].x;
+        sum_y += arr[i].y;
     }
+    res.mean_x = sum_x / size;
+    res.mean_y = sum_y / size;
     return res;
+}*/
+
+/*#include <stdarg.h>  //7.7.6 Указатели на структуры. Передача структур в функции
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+typedef struct {
+    char fname[MAX_SIZE];
+    char old;
+    char stag;
+    int salary;
+    double efs;
+} PERSON;
+
+void fill_data(PERSON *ptr, char format_str[], ...);
+
+int main() {
+    PERSON first;
+    fill_data(&first, "#o #e #s #f", 35, 3.5, 36000, "Maxim Polyakov");
+    return 0;
+}
+
+void fill_data(PERSON *ptr, char format_str[], ...) {
+    va_list arg;
+    va_start(arg, format_str);
+    char *ptr_symbol = strchr(format_str, '#');
+    while (ptr_symbol != NULL) {
+        if (ptr_symbol != NULL && *(ptr_symbol + 1) == 'f') {
+            strcpy(ptr->fname, va_arg(arg, char *));
+            ptr_symbol = strchr(ptr_symbol + 1, '#');
+        }
+        if (ptr_symbol != NULL && *(ptr_symbol + 1) == 'o') {
+            ptr->old = (char)va_arg(arg, int);
+            ptr_symbol = strchr(ptr_symbol + 1, '#');
+        }
+        if (ptr_symbol != NULL && *(ptr_symbol + 1) == 'g') {
+            ptr->stag = (char)va_arg(arg, int);
+            ptr_symbol = strchr(ptr_symbol + 1, '#');
+        }
+        if (ptr_symbol != NULL && *(ptr_symbol + 1) == 's') {
+            ptr->salary = va_arg(arg, int);
+            ptr_symbol = strchr(ptr_symbol + 1, '#');
+        }
+        if (ptr_symbol != NULL && *(ptr_symbol + 1) == 'e') {
+            ptr->efs = va_arg(arg, double);
+            ptr_symbol = strchr(ptr_symbol + 1, '#');
+        }
+    }
+    va_end(arg);
+}*/
+
+/*#include <stdio.h>  //7.8.1 Реализация стека (пример использования структур)
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 1024
+
+typedef struct tag_obj {
+    char url[MAX_SIZE];
+    struct tag_obj* next;
+} OBJ;
+
+OBJ* push(OBJ* top, const char* url);
+OBJ* pop(OBJ* top);
+
+int main() {
+    OBJ* top = NULL;
+    top = push(top, "https://proproprogs.ru/c_base/c_etapy-translyacii-programmy-v-mashinnyy-kod-standarty");
+    top = push(top, "https://proproprogs.ru/c_base/c_struktura-i-ponimanie-raboty-programmy-hello-world");
+    top = push(top,
+               "https://proproprogs.ru/c_base/"
+               "c_dvoichnaya-shestnadcaterichnaya-i-vosmerichnaya-sistemy-schisleniya");
+    top = push(top, "https://proproprogs.ru/c_base/c_lokalnye-i-globalnye-peremennye");
+    top = push(top, "https://proproprogs.ru/c_base/c_perechisleniya-enum-direktiva-typedef");
+    while (top != NULL) {
+        top = pop(top);
+    }
+    return 0;
+}
+
+OBJ* push(OBJ* top, const char* url) {
+    OBJ* ptr = malloc(sizeof(OBJ));
+    strcpy(ptr->url, url);
+    ptr->next = top;
+    return ptr;
+}
+
+OBJ* pop(OBJ* top) {
+    if (top == NULL) return top;
+    OBJ* ptr_next = top->next;
+    free(top);
+    return ptr_next;
+}*/
+
+/*#include <stdarg.h>  //7.8.2 Реализация стека (пример использования структур)
+#include <stdio.h>
+
+enum { name_length = 50, total_links = 50, max_path_station = 100 };
+
+typedef struct tag_station {
+    char name[name_length];
+    struct tag_station* links[total_links];
+    short count_links;
+    char fl_reserved;
+} STATION;
+
+void set_station_links(STATION* st, int count_links, ...) {
+    STATION* current = st;
+    va_list arg;
+    va_start(arg, count_links);
+    for (int i = 0; i < count_links; i++) {
+        current->links[i] = va_arg(arg, STATION*);
+    }
+    current->count_links = count_links;
+    va_end(arg);
+}
+
+int main() {
+    STATION st[10] = {
+        {"St #1", .count_links = 0, .fl_reserved = 0}, {"St #2", .count_links = 0, .fl_reserved = 0},
+        {"St #3", .count_links = 0, .fl_reserved = 0}, {"St #4", .count_links = 0, .fl_reserved = 0},
+        {"St #5", .count_links = 0, .fl_reserved = 0}, {"St #6", .count_links = 0, .fl_reserved = 0},
+        {"St #7", .count_links = 0, .fl_reserved = 0}, {"St #8", .count_links = 0, .fl_reserved = 0},
+        {"St #9", .count_links = 0, .fl_reserved = 0}, {"St #10", .count_links = 0, .fl_reserved = 0},
+    };
+
+    set_station_links(&st[0], 2, &st[1], &st[2]);
+    set_station_links(&st[1], 3, &st[0], &st[3], &st[4]);
+    set_station_links(&st[2], 2, &st[0], &st[5]);
+    set_station_links(&st[3], 2, &st[1], &st[5]);
+    set_station_links(&st[4], 2, &st[1], &st[7]);
+    set_station_links(&st[5], 4, &st[2], &st[3], &st[6], &st[8]);
+    set_station_links(&st[6], 2, &st[5], &st[8]);
+    set_station_links(&st[7], 2, &st[4], &st[8]);
+    set_station_links(&st[8], 4, &st[5], &st[6], &st[7], &st[9]);
+    set_station_links(&st[9], 1, &st[8]);
+    return 0;
+}*/
+
+/*#include <stdarg.h>  //7.8.3 Реализация стека (пример использования структур) не сделал ДОДЕЛАТЬ BFC
+#include <stdio.h>
+
+enum { name_length = 50, total_links = 50, max_path_station = 100 };
+
+typedef struct tag_station {
+    char name[name_length];
+    struct tag_station* links[total_links];
+    short count_links;
+    char fl_reserved;
+} STATION;
+
+void set_station_links(STATION* st, int count_links, ...) {
+    STATION* current = st;
+    va_list arg;
+    va_start(arg, count_links);
+    for (int i = 0; i < count_links; i++) {
+        current->links[i] = va_arg(arg, STATION*);
+    }
+    current->count_links = count_links;
+    va_end(arg);
+}
+
+void find_path(STATION* from, STATION* to, STATION *path[], int* count_st) {
+
+}
+
+int main() {
+    STATION st[10] = {
+        {"St #1", .count_links = 0, .fl_reserved = 0}, {"St #2", .count_links = 0, .fl_reserved = 0},
+        {"St #3", .count_links = 0, .fl_reserved = 0}, {"St #4", .count_links = 0, .fl_reserved = 0},
+        {"St #5", .count_links = 0, .fl_reserved = 0}, {"St #6", .count_links = 0, .fl_reserved = 0},
+        {"St #7", .count_links = 0, .fl_reserved = 0}, {"St #8", .count_links = 0, .fl_reserved = 0},
+        {"St #9", .count_links = 0, .fl_reserved = 0}, {"St #10", .count_links = 0, .fl_reserved = 0},
+    };
+    STATION* path[max_path_station];
+    int count_st = 0;
+
+    set_station_links(&st[0], 2, &st[1], &st[2]);
+    set_station_links(&st[1], 3, &st[0], &st[3], &st[4]);
+    set_station_links(&st[2], 2, &st[0], &st[5]);
+    set_station_links(&st[3], 2, &st[1], &st[5]);
+    set_station_links(&st[4], 2, &st[1], &st[7]);
+    set_station_links(&st[5], 4, &st[2], &st[3], &st[6], &st[8]);
+    set_station_links(&st[6], 2, &st[5], &st[8]);
+    set_station_links(&st[7], 2, &st[4], &st[8]);
+    set_station_links(&st[8], 4, &st[5], &st[6], &st[7], &st[9]);
+    set_station_links(&st[9], 1, &st[8]);
+
+
+
+    //find_path(&st[0], &st[9], path, &count_st);
+
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.9.1 Объединения (union). Битовые поля
+
+typedef enum { coord_int = 1, coord_double = 2 } TYPE_COORD;
+
+typedef union {
+    int coord_i;
+    double coord_d;
+} COORD;
+
+typedef struct {
+    COORD x;
+    COORD y;
+    TYPE_COORD type;
+} POINT2;
+
+int main() {
+    POINT2 pt;
+    scanf("%u", &pt.type);
+    if (pt.type == coord_int) {
+        scanf("%d%d", &pt.x.coord_i, &pt.y.coord_i);
+    } else {
+        scanf("%lf%lf", &pt.x.coord_d, &pt.y.coord_d);
+    }
+    return 0;
+}*/
+
+/*#include <stdio.h>  //7.9.2 Объединения (union). Битовые поля
+#define SIZE 5
+
+typedef enum { param_int = 1, param_double = 2 } TYPE_PARAM;
+
+typedef union {
+    int data_i;
+    double data_d;
+    int res_1;
+    double res_2;
+} DATA;
+
+DATA sum_ar(DATA* arr, size_t count_arr, TYPE_PARAM a);
+
+int main() {
+    DATA arr_i[SIZE];
+    DATA arr_d[SIZE];
+    int num = 1;
+    double num_2 = 1.1;
+    for (int i = 0; i < SIZE; i++) {
+        arr_i[i].data_i = num;
+        num += 1;
+    }
+    for (int i = 0; i < SIZE; i++) {
+        arr_d[i].data_d = num_2;
+        num_2 += 1.1;
+    }
+    DATA result_i = sum_ar(arr_i, SIZE, 1);
+    DATA result_d = sum_ar(arr_d, SIZE, 2);
+    return 0;
+}
+
+DATA sum_ar(DATA* arr, size_t count_arr, TYPE_PARAM a) {
+    DATA result;
+    if (a == param_int) {
+        result.res_1 = 0;
+        for (size_t i = 0; i < count_arr; i++) {
+            result.res_1 += arr[i].data_i;
+        }
+    } else {
+        result.res_2 = 0.0;
+        for (size_t i = 0; i < count_arr; i++) {
+            result.res_2 += arr[i].data_d;
+        }
+    }
+    return result;
+}*/
+
+/*#include <stdio.h>  //7.9.3 Объединения (union). Битовые поля
+
+typedef struct {
+    unsigned old : 7;
+    unsigned salary : 20;
+    unsigned height : 8;
+    unsigned weight : 7;
+} PERSON_DATA;
+
+int main() {
+    PERSON_DATA pd;
+    pd.old = 45;
+    pd.salary = 876043;
+    pd.height = 186;
+    pd.weight = 83;
+    printf("%ld", sizeof(pd));
+    return 0;
+}*/
+
+/*#include <stdio.h>  //8.1.1 Файловые функции: fopen(), fclose(), fgetc(), fputc()
+
+int main() {
+    FILE* fl = fopen("test.dat", "r");
+    if (fl == NULL) return 2;
+    fclose(fl);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //8.2.1 Функции perror(), fseek() и ftell()
+
+int main() {
+    char byte;
+    FILE* fp = stdin;
+
+    int pos = ftell(fp);
+    while ((byte = fgetc(fp)) != EOF) {
+        printf("%d:%d ", byte, pos);
+    }
+    return 0;
+}*/
+
+/*#include <stdio.h>  //8.3.1 Функции perror(), fseek() и ftell()
+#include <string.h>
+
+int main() {
+    char buff[512];
+
+    FILE* fp = stdin;
+    fgets(buff, sizeof(buff), fp);
+    char* ptr_tok = strtok(buff, " ");
+    int count = 0;
+    while (ptr_tok != NULL) {
+        count++;
+        ptr_tok = strtok(NULL, " ");
+    }
+    printf("%d", count);
+
+    return 0;
+}*/
+
+#include <stdio.h>
+
+int main() {
+    char buff[512];
+    int w, h;
+
+    FILE* fp = stdout; // имитация отрытого файлового потока
+
+    // fclose(fp); закрывать стандартный поток не нужно
+
+    return 0;
 }
