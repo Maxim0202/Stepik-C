@@ -5052,15 +5052,112 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h>
+/*#include <stdio.h>  //8.3.2 Функции perror(), fseek() и ftell()
+#include <string.h>
 
 int main() {
     char buff[512];
     int w, h;
+    scanf("%d%d", &w, &h);
+    FILE* fp = stdout;
+    sprintf(buff, "rectangle: %d; %d", w, h);
+    fputs(buff, fp);
+    return 0;
+}*/
 
-    FILE* fp = stdout; // имитация отрытого файлового потока
+/*#include <stdio.h>  //8.3.3 Функции fputs(), fgets() и fprintf(), fscanf()
 
-    // fclose(fp); закрывать стандартный поток не нужно
+enum { max_length_ar = 20 };
 
+int main() {
+    double temp[max_length_ar] = {0};
+
+    FILE* fp = stdin;
+    int count = 0;
+    while ((fscanf(fp, "%lf", &temp[count])) == 1 && count < max_length_ar) {
+        count++;
+    }
+    for (int i = 0; i < count; i++) {
+        if (temp[i] > 0) printf("%.2lf ", temp[i]);
+    }
+    return 0;
+}*/
+
+/*#include <stdio.h>  //8.3.4 Функции fputs(), fgets() и fprintf(), fscanf()
+
+typedef struct {
+    unsigned int id;
+    unsigned int width, height, depth;
+    double weight;
+} BOX;
+
+int main() {
+    BOX one;
+    FILE* fp = stdout;
+    scanf("%u; %u; %u; %u; %lf", &one.id, &one.width, &one.height, &one.depth, &one.weight);
+    fprintf(fp, "box %u: %u x %u x %u", one.id, one.width, one.height, one.depth);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //8.4.1 Функции feof(), fflush(), setvbuf()
+#include <string.h>
+
+enum { max_lines = 10, max_string_len = 200 };
+
+int main() {
+    char text[max_lines][max_string_len] = {0};
+    int count = 0;
+    FILE* fp = stdin;
+    while (!feof(fp) && count < max_lines) {
+        for (int i = 0; i < max_lines && fgets(text[i], max_string_len, fp) != NULL; i++) {
+            count++;
+        }
+    }
+    for (int i = 0; i < count; i++) {
+        char* n = strchr(text[i], '\n');
+        if (n != NULL) *n = '\0';
+        puts(text[i]);
+    }
+    return 0;
+}*/
+
+/*#include <stdio.h>  //8.5.1 Бинарный режим доступа. Функции fwrite() и fread()
+
+int main() {
+    short data[] = {79 + 256*80, 81 + 256*82, 83 + 256*84, 85 + 256*86};
+    FILE* fp = stdout;
+    fwrite(data, sizeof(*data), sizeof(data) / sizeof(*data), fp);
+    return 0;
+}*/
+
+/*#include <stdio.h>  //8.5.2 Бинарный режим доступа. Функции fwrite() и fread()
+
+int main() {
+    short data[10] = {0};
+    FILE* fp = stdin;
+    int res = fread(data, sizeof(*data), sizeof(data)/sizeof(*data), fp);
+    for (int i = 0; i < res; i++) {
+        printf("%d ", data[i]);
+    }
+    return 0;
+}*/
+
+#include <stdio.h>
+
+int main() {
+    int n = 0;
+    int col_star = 1;
+    scanf("%d", &n);
+    for (int i = n; i > 0; i--) {
+        int col_space = i - 1;
+        for (int j = 0; j < col_space; j++) {
+            printf(" ");
+        }
+        for (int k = 0; k < col_star; k++) {
+            printf("*");
+        }
+        col_star += 2;
+        printf("\n");
+    }
     return 0;
 }
