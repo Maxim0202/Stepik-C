@@ -3847,7 +3847,7 @@ void encoding(char *str, char *res, char *symbols, const char *morze[]) {
     }
 }*/
 
-/*#include <stdio.h>  //6.7.5 Рекурсивные функции
+#include <stdio.h>  //6.7.5 Рекурсивные функции
 #include <stdlib.h>
 #include <string.h>
 
@@ -3889,7 +3889,7 @@ void encoding(char *str, char *res, char *symbols, const char *morze[]) {
         }
         token = strtok(NULL, " ");
     }
-}*/
+}
 
 /*#include <stdarg.h>  //6.8.1 Функции с произвольным числом параметров
 #include <stdio.h>
@@ -5142,7 +5142,7 @@ int main() {
     return 0;
 }*/
 
-#include <stdio.h>
+/*#include <stdio.h>
 
 int main() {
     int n = 0;
@@ -5160,4 +5160,4 @@ int main() {
         printf("\n");
     }
     return 0;
-}
+}*/

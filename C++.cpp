@@ -225,7 +225,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  ////9.4.5 Пространства имен (namespace)
+/*#include <iostream>  //9.4.5 Пространства имен (namespace)
 
 namespace array_alg {
 typedef int (*PTR_FILTER_FUNC)(int a);
@@ -263,5 +263,265 @@ int main() {
         std::cout << marks[i] << ' ';
     }
 
+    return 0;
+}*/
+
+/*#include <iostream>  //9.5.1 Оператор using
+
+using std::cin;
+using std::cout;
+
+int main() {
+    char arr[50] = {0};
+    cin >> arr;
+    cout << arr;
+    return 0;
+}*/
+
+/*#include <cstring>   //9.5.2 Оператор using
+#include <iostream>
+
+enum { max_string = 50 };
+
+using MEASURE = struct {
+    unsigned short width;
+    unsigned short height;
+    unsigned short depth;
+};
+
+using AUTO = struct {
+    char model[max_string];
+    unsigned short max_speed;
+    double weight;
+    MEASURE m;
+};
+
+int main() {
+    AUTO auto_sell;
+    char model[50];
+    unsigned short max_speed, width, height, depth;
+    double weight;
+    std::cin >> model >> max_speed >> weight >> width >> height >> depth;
+    strcpy(auto_sell.model, model);
+    auto_sell.max_speed = max_speed;
+    auto_sell.weight = weight;
+    auto_sell.m.depth = depth;
+    auto_sell.m.height = height;
+    auto_sell.m.width = width;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.5.3 Оператор using
+
+using FIO_STR = char[50];
+using FIO = struct {
+    FIO_STR first;
+    FIO_STR otch;
+    FIO_STR last;
+};
+
+int main() {
+    FIO fio;
+    std::cin >> fio.first >> fio.otch >> fio.last;
+    return 0;
+}*/
+
+/*#include <cstring>   //9.5.4 Оператор using
+#include <iostream>
+
+enum { max_things = 20, max_string = 50 };
+
+using THING = struct {
+    char name[max_string];
+    double weight;
+};
+
+int main() {
+    THING th[max_things];
+    int count = 0;
+    for (int i = 0; i < max_things && std::cin >> th[i].name >> th[i].weight; i++) {
+        count++;
+    }
+    for (int i = 0; i < count; i++) {
+        for (int j = i + 1; j < count; j++) {
+            if (th[i].weight > th[j].weight) {
+                THING temp;
+                temp = th[i];
+                th[i] = th[j];
+                th[j] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i < count; i++) {
+        std::cout << th[i].name << ' ';
+    }
+
+    return 0;
+}*/
+
+/*#include <iostream>  //9.5.5 Оператор using
+
+enum { max_string = 50 };
+
+using THING = struct {
+    char name[max_string];
+    unsigned int weight;
+};
+
+int main() {
+    THING things[] = {{"карандаш", 20},  {"зеркальце", 100}, {"зонт", 500},    {"рубашка", 300},
+                      {"брюки", 1000},   {"бумага", 200},    {"молоток", 600}, {"пила", 400},
+                      {"удочка", 1200},  {"расческа", 40},   {"котелок", 820}, {"палатка", 5240},
+                      {"брезент", 2130}, {"спички", 10}};
+    int n = 0;
+    size_t size_things = sizeof(things) / sizeof(things[0]);
+    for (int i = 0; i < size_things; i++) {
+        for (int j = i + 1; j < size_things; j++) {
+            if (things[i].weight < things[j].weight) {
+                THING temp;
+                temp = things[i];
+                things[i] = things[j];
+                things[j] = temp;
+            }
+        }
+    }
+    std::cin >> n;
+    n *= 1000;
+    int current_weigth = 0;
+    for (int i = 0; i < size_things; i++) {
+        if (things[i].weight <= n - current_weigth) {
+            current_weigth += things[i].weight;
+            std::cout << things[i].name << ' ';
+        }
+        if (current_weigth == n) break;
+    }
+    return 0;
+}*/
+
+/*#include <iostream>  //9.6.1 Новые типы данных. Приведение типов указателей
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main() {
+    bool fl_even = false;
+    int a;
+    while (cin >> a && a != 0) {
+        if (a % 2 == 0) {
+            continue;
+        } else {
+            fl_even = true;
+            break;
+        }
+    }
+    cout << (fl_even ? "no" : "even") << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.6.2 Новые типы данных. Приведение типов указателей
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main() {
+    bool fl_even = false;
+    int a;
+    while (cin >> a && a != 0) {
+        if (a % 2 == 0) fl_even = true;
+    }
+    cout << (fl_even ? "even" : "no") << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.6.3 Новые типы данных. Приведение типов указателей
+
+using std::cin;
+using std::cout;
+using std::endl;
+using PTR_FUNC = bool (*)(int);
+
+bool all(const int* ar, size_t len, PTR_FUNC filter) {
+    bool result = false;
+    for (int i = 0; i < len; i++) {
+        if (filter(ar[i]))
+            result = true;
+        else
+            break;
+    }
+    return result;
+}
+
+bool positive(int x) {
+    bool flag = 0;
+    if (x > 0) flag = 1;
+    return flag;
+}
+
+int main() {
+    int number[] = {2, 3, 1, -10, 15};
+    bool res = all(number, sizeof(number) / sizeof(number[0]), positive);
+    return 0;
+}*/
+
+/*#include <iostream>  //9.6.4 Новые типы данных. Приведение типов указателей
+
+using std::cin;
+using std::cout;
+using std::endl;
+using PTR_FUNC = bool (*)(double);
+
+bool any(const double* ar, size_t len, PTR_FUNC filter) {
+    bool result = false;
+    for (int i = 0; i < len; i++) {
+        if (filter(ar[i])) {
+            result = true;
+            break;
+        }
+    }
+    return result;
+}
+
+bool range_out(double x) {
+    bool flag = false;
+    if (x < -0.5 || x > 0.5) flag = true;
+    return flag;
+}
+
+int main() {
+    double number[] = {0.1, 0.2, 0.3, -0.4, 1.4};
+    bool res = any(number, sizeof(number) / sizeof(number[0]), range_out);
+    return 0;
+}*/
+
+#include <iostream>  //9.6.5 Новые типы данных. Приведение типов указателей
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+enum { matrix_size = 4 };
+
+int main() {
+    short matrix[matrix_size][matrix_size] = {0};
+    for (int i = 0; i < matrix_size; i++) {
+        for (int j = 0; j < matrix_size; j++) {
+            if (cin >> matrix[i][j]) {
+                continue;
+            }
+        }
+    }
+
+    for (int i = 0; i < matrix_size; i++) {
+        for (int j = 0; j < matrix_size; j++) {
+            if (j == matrix_size - 1)
+                cout << matrix[i][j];
+            else
+                cout << matrix[i][j] << ' ';
+        }
+        cout << endl;
+    }
     return 0;
 }
