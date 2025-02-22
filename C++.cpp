@@ -496,7 +496,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  //9.6.5 Новые типы данных. Приведение типов указателей
+/*#include <iostream>  //9.6.5 Новые типы данных. Приведение типов указателей
 
 using std::cin;
 using std::cout;
@@ -523,5 +523,109 @@ int main() {
         }
         cout << endl;
     }
+    return 0;
+}*/
+
+/*#include <cmath>  //9.7.1 Инициализация переменных. Ключевые слова auto и decltype
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+enum { corners = 4 };
+
+struct point {
+    int x, y;
+};
+
+double calculating_length(int x_1, int y_1, int x_2, int y_2) {
+    double res = std::sqrt(std::pow(x_2 - x_1, 2) + std::pow(y_2 - y_1, 2));
+    return res;
+}
+
+double calculating_corner(double side_a, double side_b, double side_c) {
+    double find =
+        ((std::pow(side_a, 2) + std::pow(side_b, 2)) - std::pow(side_c, 2)) / (2 * (side_a * side_b));
+    double res = std::acos(find);
+    return res;  //* 180 / M_PI;
+}
+
+double calculating_area_triangle(double side_a, double side_b, double side_c) {
+    double p = (side_a + side_b + side_c) / 2;
+    double area = std::sqrt(p * (p - side_a) * (p - side_b) * (p - side_c));
+    return area;
+}
+
+int main() {
+    point figure[corners];
+    point pt;
+
+    int count = 0;
+    while (count < corners && scanf("%d; %d", &figure[count].x, &figure[count].y) == 2) count++;
+
+    if (count != corners) {
+        puts("Неверное количество или формат входных данных.");
+        return 1;
+    }
+
+    if (scanf("%d; %d", &pt.x, &pt.y) != 2) {
+        puts("Неверное количество или формат входных данных.");
+        return 2;
+    }
+
+    double side_1 = calculating_length(figure[0].x, figure[0].y, figure[1].x, figure[1].y);
+    double side_2 = calculating_length(figure[1].x, figure[1].y, figure[2].x, figure[2].y);
+    double side_3 = calculating_length(figure[2].x, figure[2].y, figure[3].x, figure[3].y);
+    double side_4 = calculating_length(figure[3].x, figure[3].y, figure[0].x, figure[0].y);
+    double side_ac = calculating_length(figure[0].x, figure[0].y, figure[2].x, figure[2].y);
+
+    double side_corner_ab_bc = calculating_corner(side_1, side_2, side_ac);
+    double side_corner_ad_dc = calculating_corner(side_4, side_3, side_ac);
+
+    double target_area =
+        0.5 * (side_1 * side_2) * sin(side_corner_ab_bc) + 0.5 * (side_4 * side_3) * sin(side_corner_ad_dc);
+
+    double triangle_side_1 = calculating_length(figure[0].x, figure[0].y, pt.x, pt.y);
+    double triangle_side_2 = calculating_length(figure[1].x, figure[1].y, pt.x, pt.y);
+    double triangle_side_3 = calculating_length(figure[2].x, figure[2].y, pt.x, pt.y);
+    double triangle_side_4 = calculating_length(figure[3].x, figure[3].y, pt.x, pt.y);
+
+    double area_1 = calculating_area_triangle(triangle_side_1, triangle_side_2, side_1);
+    double area_2 = calculating_area_triangle(triangle_side_2, triangle_side_3, side_2);
+    double area_3 = calculating_area_triangle(triangle_side_3, triangle_side_4, side_3);
+    double area_4 = calculating_area_triangle(triangle_side_4, triangle_side_1, side_4);
+
+    double curreant_area = area_1 + area_2 + area_3 + area_4;
+
+    if (abs(target_area - curreant_area) < 1e-10)
+        cout << "yes" << endl;
+    else
+        cout << "no" << endl;
+
+    return 0;
+}*/
+
+#include <iostream>  //9.8.1 Ссылки. Константные ссылки
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+enum { total_marks = 23 };
+
+int main() {
+    short marks[total_marks] = {0};
+    int count = 0;
+
+    for (int i = 0; i < total_marks && cin >> marks[i]; i++) {
+        count++;
+    }
+
+    for (short& x : marks)
+        if (x < 3) x = 0;
+
+    for (short x : marks) cout << x << ' ';
+    cout << endl;
     return 0;
 }
