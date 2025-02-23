@@ -606,7 +606,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  //9.8.1 Ссылки. Константные ссылки
+/*#include <iostream>  //9.8.1 Ссылки. Константные ссылки
 
 using std::cin;
 using std::cout;
@@ -627,5 +627,60 @@ int main() {
 
     for (short x : marks) cout << x << ' ';
     cout << endl;
+    return 0;
+}*/
+
+/*#include <cmath>  //9.8.2 Ссылки. Константные ссылки
+#include <iomanip>
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+using POINT = struct {
+    double x;
+    double y;
+};
+
+double get_length(POINT a, POINT b) { return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)); }
+
+int main() {
+    POINT a = {-2.5, 7.8};
+    POINT b = {11.4, 43.2};
+    cout << std::setprecision(2) << std::fixed << get_length(a, b) << endl;
+    return 0;
+}*/
+
+#include <cmath>  //9.8.3 Ссылки. Константные ссылки
+#include <iomanip>
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::fixed;
+using std::setprecision;
+
+#include <iostream>
+
+struct point {
+    int x, y;
+};
+
+double sq_tr(const point& a, const point& b, const point& c) {
+    double length_1 = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+    double length_2 = sqrt(pow(b.x - c.x, 2) + pow(b.y - c.y, 2));
+    double length_3 = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
+    double p = (length_1 + length_2 + length_3) / 2;
+    return sqrt(p * (p - length_1) * (p - length_2) * (p - length_3));
+}
+
+int main() {
+    point a;
+    point b;
+    point c;
+    cin >> a.x >> a.y >> b.x >> b.y >> c.x >> c.y;
+    cout << setprecision(2) << fixed << sq_tr(a, b, c) << endl;
     return 0;
 }
