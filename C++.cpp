@@ -652,7 +652,7 @@ int main() {
     return 0;
 }*/
 
-#include <cmath>  //9.8.3 Ссылки. Константные ссылки
+/*#include <cmath>  //9.8.3 Ссылки. Константные ссылки
 #include <iomanip>
 #include <iostream>
 
@@ -682,5 +682,260 @@ int main() {
     point c;
     cin >> a.x >> a.y >> b.x >> b.y >> c.x >> c.y;
     cout << setprecision(2) << fixed << sq_tr(a, b, c) << endl;
+    return 0;
+}*/
+
+/*#include <cmath>  //9.8.4 Ссылки. Константные ссылки
+#include <iomanip>
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+enum { corners = 4 };
+
+struct point {
+    int x, y;
+};
+
+double calculating_length(int x_1, int y_1, int x_2, int y_2);
+double calculating_corner(double side_a, double side_b, double side_c);
+void calculating_triangle_side(point fogure[], point check, double& side_1, double& side_2, double& side_3,
+                               double& side_4);
+double calculating_area_triangle(double side_a, double side_b, double side_c);
+void find_pt_max(point figure[], int count, point& pt_m);
+void find_pt_min(point figure[], int count, point& pt_mi);
+double find_current_area(double side_1, double side_2, double side_3, double side_4, double side_1_original,
+                         double side_2_original, double side_3_original, double side_4_original);
+
+int main() {
+    point figure[corners];
+    point pt_max;
+    point pt_min;
+    point pt;
+    double triangle_side_1 = 0.0;
+    double triangle_side_2 = 0.0;
+    double triangle_side_3 = 0.0;
+    double triangle_side_4 = 0.0;
+
+    int count = 0;
+    int count_point = 0;
+    while (count < corners && scanf("%d; %d", &figure[count].x, &figure[count].y) == 2) count++;
+
+    if (count != corners) {
+        puts("Неверное количество или формат входных данных.");
+        return 1;
+    }
+
+    double side_1 = calculating_length(figure[0].x, figure[0].y, figure[1].x, figure[1].y);
+    double side_2 = calculating_length(figure[1].x, figure[1].y, figure[2].x, figure[2].y);
+    double side_3 = calculating_length(figure[2].x, figure[2].y, figure[3].x, figure[3].y);
+    double side_4 = calculating_length(figure[3].x, figure[3].y, figure[0].x, figure[0].y);
+    double side_ac = calculating_length(figure[0].x, figure[0].y, figure[2].x, figure[2].y);
+
+    double side_corner_ab_bc = calculating_corner(side_1, side_2, side_ac);
+    double side_corner_ad_dc = calculating_corner(side_4, side_3, side_ac);
+
+    double target_area =
+        0.5 * (side_1 * side_2) * sin(side_corner_ab_bc) + 0.5 * (side_4 * side_3) * sin(side_corner_ad_dc);
+    find_pt_max(figure, count, pt_max);
+    find_pt_min(figure, count, pt_min);
+
+    for (int i = pt_min.x; i <= pt_max.x; i++) {
+        for (int j = pt_min.y; j <= pt_max.y; j++) {
+            pt.x = i;
+            pt.y = j;
+            calculating_triangle_side(figure, pt, triangle_side_1, triangle_side_2, triangle_side_3,
+                                      triangle_side_4);
+            double current_area = find_current_area(triangle_side_1, triangle_side_2, triangle_side_3,
+                                                    triangle_side_4, side_1, side_2, side_3, side_4);
+
+            if (fabs(target_area - current_area) < 1e-10) {
+                count_point++;
+            }
+        }
+    }
+    cout << count_point << endl;
+    return 0;
+}
+
+double calculating_length(int x_1, int y_1, int x_2, int y_2) {
+    double res = sqrt(pow(x_2 - x_1, 2) + pow(y_2 - y_1, 2));
+    return res;
+}
+
+double calculating_corner(double side_a, double side_b, double side_c) {
+    double find =
+        ((pow(side_a, 2) + pow(side_b, 2)) - pow(side_c, 2)) / (2 * (side_a * side_b));
+    double res = acos(find);
+    return res;
+}
+
+void calculating_triangle_side(point figure[], point check, double& side_1, double& side_2, double& side_3,
+                               double& side_4) {
+    side_1 = calculating_length(figure[0].x, figure[0].y, check.x, check.y);
+    side_2 = calculating_length(figure[1].x, figure[1].y, check.x, check.y);
+    side_3 = calculating_length(figure[2].x, figure[2].y, check.x, check.y);
+    side_4 = calculating_length(figure[3].x, figure[3].y, check.x, check.y);
+}
+
+double calculating_area_triangle(double side_a, double side_b, double side_c) {
+    double p = (side_a + side_b + side_c) / 2;
+    double area = sqrt(p * (p - side_a) * (p - side_b) * (p - side_c));
+    return area;
+}
+
+void find_pt_max(point figure[], int count, point& pt_m) {
+    pt_m.x = figure[0].x;
+    pt_m.y = figure[0].y;
+    for (int i = 1; i < count; i++) {
+        if (pt_m.x < figure[i].x) pt_m.x = figure[i].x;
+        if (pt_m.y < figure[i].y) pt_m.y = figure[i].y;
+    }
+}
+
+void find_pt_min(point figure[], int count, point& pt_mi) {
+    pt_mi.x = figure[0].x;
+    pt_mi.y = figure[0].y;
+    for (int i = 1; i < count; i++) {
+        if (pt_mi.x > figure[i].x) pt_mi.x = figure[i].x;
+        if (pt_mi.y > figure[i].y) pt_mi.y = figure[i].y;
+    }
+}
+
+double find_current_area(double side_1, double side_2, double side_3, double side_4, double side_1_original,
+                         double side_2_original, double side_3_original, double side_4_original) {
+    double area_1 = calculating_area_triangle(side_1, side_2, side_1_original);
+    double area_2 = calculating_area_triangle(side_2, side_3, side_2_original);
+    double area_3 = calculating_area_triangle(side_3, side_4, side_3_original);
+    double area_4 = calculating_area_triangle(side_4, side_1, side_4_original);
+
+    double curreant_area = area_1 + area_2 + area_3 + area_4;
+    return curreant_area;
+}*/
+
+/*#include <iostream>  //9.9.1 Объект-строка string. Операции с объектами класса string
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+int main() {
+    string fname;
+    string lname;
+    string fio;
+    cin >> fname;
+    cin >> lname;
+    fio = fname + ", " + lname;
+    cout << fio << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.9.2 Объект-строка string. Операции с объектами класса string
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+using std::to_string;  // для конвертации чисел в строки
+
+int main() {
+    int width, height;
+    cin >> width >> height;
+    string data_str;
+    data_str = "Переменная width = " + to_string(width) + ", переменная height = " + to_string(height);
+    cout << data_str << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.9.3 Объект-строка string. Операции с объектами класса string
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+int main() {
+    string msg;
+    getline(cin, msg);
+    for (int i = 0; i < 4; i++) {
+        cout << msg[i];
+    }
+    cout << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.9.4 Объект-строка string. Операции с объектами класса string
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+int main() {
+    string msg;
+    getline(cin, msg);
+    int count = msg.size();
+    for (int i = 0; i < 3; i++) {
+        putchar(msg[count - 1]);
+        count--;
+    }
+    return 0;
+}*/
+
+/*#include <iostream>  //9.9.5 Объект-строка string. Операции с объектами класса string
+#include <string>
+
+enum { max_cities = 10, max_length = 50 };
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+int main() {
+    char cities[max_cities][max_length] = {};
+    string res;
+    int i = 0;
+    while (i < max_cities) {
+        cin >> cities[i++];
+    }
+    res = {};
+    for (int j = 0; j < i; j++) {
+        string test = cities[j];
+        if (test.size() > 5) {
+            res += test;
+            res.append(" ");
+        }
+    }
+    cout << res << endl;
+    return 0;
+}*/
+
+#include <iostream>  //9.9.6 Объект-строка string. Операции с объектами класса string
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+int main() {
+    string str;
+    getline(cin, str);
+    for (int i = 0; i < str.size() - 1;) {
+        if (str[i] == '-' && str[i + 1] == '-') {
+            str.erase(i + 1, 1);
+        } else {
+            i++;
+        }
+    }
+    cout << str << endl;
     return 0;
 }
