@@ -918,7 +918,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  //9.9.6 Объект-строка string. Операции с объектами класса string
+/*#include <iostream>  //9.9.6 Объект-строка string. Операции с объектами класса string
 #include <string>
 
 using std::cin;
@@ -938,4 +938,234 @@ int main() {
     }
     cout << str << endl;
     return 0;
+}*/
+
+/*#include <cmath>  //9.13.2 Перегрузка функций. Директива extern C
+#include <iomanip>
+#include <iostream>
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::fixed;
+using std::setprecision;
+
+double get_square(int a, int b, int c);
+int get_square(int a, int b);
+
+int main() {
+    int x, y, z, a, b;
+    cin >> x >> y >> z >> a >> b;
+    cout << fixed << setprecision(1);
+    cout << get_square(x, y, z) << ' ' << (double)get_square(a, b) << endl;
+
+    return 0;
+}
+
+double get_square(int a, int b, int c) {
+    double p = (a + b + c) / 2.0;
+    return sqrt(p * (p - a) * (p - b) * (p - c));
+}
+int get_square(int a, int b) { return a * b; }*/
+
+/*#include <iomanip>  //9.13.3 Перегрузка функций. Директива extern C
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::fixed;
+using std::setprecision;
+
+double min2(double a, double b);
+int min2(int a, int b);
+
+int main() {
+    int a;
+    double b;
+    cin >> a >> b;
+    cout << fixed << setprecision(1);
+    cout << min2((double)a, b) << endl;
+    return 0;
+}
+
+double min2(double a, double b) { return a < b ? a : b; }
+int min2(int a, int b) { return a < b ? a : b; }*/
+
+/*#ifdef __cplusplus  //9.13.4 Перегрузка функций. Директива extern C
+#include <iomanip>
+#include <iostream>
+#else
+#include <stdio.h>
+#endif
+
+#ifdef __cplusplus
+using std::cin;
+using std::cout;
+using std::endl;
+using std::fixed;
+using std::setprecision;
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+double mean_2(int a, int b) { return (a + b) / 2.; }
+#ifdef __cplusplus
+}
+#endif
+
+int main() {
+    int a, b;
+#ifdef __cplusplus
+    cin >> a >> b;
+#else
+    scanf("%d%d", &a, &b);
+#endif
+    double res = mean_2(a, b);
+#ifdef __cplusplus
+    cout << fixed << setprecision(1) << res << endl;
+#else
+    printf("%.1lf", res);
+#endif
+    return 0;
+}*/
+
+/*#include <iostream>  //9.14.1 Значения параметров функции по умолчанию
+
+using std::cin;
+using std::cout;
+using std::endl;
+using calc_type = enum { calc_perimetr, calc_square };
+
+int get_rect_value(int a, int b, calc_type type = calc_perimetr);
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+    cout << get_rect_value(a, b) << endl;
+    return 0;
+}
+
+int get_rect_value(int a, int b, calc_type type) {
+    int res = 0.;
+    switch (type) {
+        case calc_perimetr:
+            res = (a + b) * 2;
+            break;
+        case calc_square:
+            res = a * b;
+            break;
+        default:
+            break;
+    }
+    return res;
+}*/
+
+/*#include <algorithm>  //9.14.2 Значения параметров функции по умолчанию
+#include <iostream>
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+bool check_password(string pass, const char* chars = "$%!?@#");
+int main() {
+    string pass;
+    getline(cin, pass);
+    cout << (check_password(pass) ? "yes" : "no") << endl;
+    return 0;
+}
+
+bool check_password(string pass, const char* chars) {
+    if (pass.length() >= 8 && pass.find_first_of(chars) != std::string::npos)
+        return true;
+    else
+        return false;
+}*/
+
+/*#include <algorithm>  //9.14.3 Значения параметров функции по умолчанию
+#include <cstring>
+#include <iostream>
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+enum { max_length = 100 };
+
+void set_tag(char* str, int length, const char* tag = "h1");
+
+int main() {
+    string title, tag;
+    getline(cin, title);
+    getline(cin, tag);
+    char str[max_length] = {};
+    char str_2[max_length] = {};
+    char str_tag[max_length] = {};
+    strncpy(str, title.c_str(), max_length - 1);
+    strncpy(str_2, title.c_str(), max_length - 1);
+    strncpy(str_tag, tag.c_str(), max_length - 1);
+    set_tag(str, max_length);
+    set_tag(str_2, max_length, str_tag);
+    cout << str << endl;
+    cout << str_2 << endl;
+    return 0;
+}
+
+void set_tag(char* str, int length, const char* tag) {
+    char buff[length] = {};
+    sprintf(buff, "<%s>%s</%s>", tag, str, tag);
+    strncpy(str, buff, length);
+}*/
+
+#include <algorithm>  //9.14.4 Значения параметров функции по умолчанию
+#include <cstring>
+#include <iostream>
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+using calc_type = enum { calc_perimetr, calc_square };
+
+int get_rect(int a, int b, calc_type type = calc_perimetr);
+double get_rect(double a, double b, calc_type type = calc_perimetr);
+
+int main() { return 0; }
+
+int get_rect(int a, int b, calc_type type) {
+    int res = 0;
+    switch (type) {
+        case calc_perimetr:
+            res = (a + b) * 2;
+            break;
+        case calc_square:
+            res = a * b;
+            break;
+        default:
+            break;
+    }
+    return res;
+}
+double get_rect(double a, double b, calc_type type) {
+    double res = 0.;
+    switch (type) {
+        case calc_perimetr:
+            res = (a + b) * 2;
+            break;
+        case calc_square:
+            res = a * b;
+            break;
+        default:
+            break;
+    }
+    return res;
 }
