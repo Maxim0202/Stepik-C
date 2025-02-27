@@ -1124,7 +1124,7 @@ void set_tag(char* str, int length, const char* tag) {
     strncpy(str, buff, length);
 }*/
 
-#include <algorithm>  //9.14.4 Значения параметров функции по умолчанию
+/*#include <algorithm>  //9.14.4 Значения параметров функции по умолчанию
 #include <cstring>
 #include <iostream>
 #include <string>
@@ -1168,4 +1168,327 @@ double get_rect(double a, double b, calc_type type) {
             break;
     }
     return res;
+}*/
+
+/*#include <algorithm>  //9.14.5 Значения параметров функции по умолчанию
+#include <cstring>
+#include <iostream>
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+using type_sort = enum { sort_asc, sort_desc };
+
+int sort(short* ar, size_t len, type_sort type = sort_asc) {
+    int count = 0;
+    short arr_check[len] = {};
+    memcpy(arr_check, ar, sizeof(ar));
+    switch (type) {
+        case sort_asc:
+            for (int i = 0; i < len; i++) {
+                for (int j = i; j < len; j++)
+                    if (ar[i] > ar[j]) {
+                        int temp = ar[i];
+                        ar[i] = ar[j];
+                        ar[j] = temp;
+                    }
+            }
+            break;
+        case sort_desc:
+            for (int i = 0; i < len; i++) {
+                for (int j = i; j < len; j++)
+                    if (ar[i] < ar[j]) {
+                        int temp = ar[i];
+                        ar[i] = ar[j];
+                        ar[j] = temp;
+                    }
+            }
+            break;
+        default:
+            break;
+    }
+    for (int i = 0; i < len; i++) {
+        if (ar[i] != arr_check[i]) count++;
+    }
+    return count;
+}
+
+int main() {
+    short arr[] = {3, 2, 4, 5};
+    size_t length = sizeof(arr) / sizeof(*arr);
+    int res = sort(arr, length);
+    cout << res << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.15.1 inline-функции
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+inline int get_max_3(int a, int b, int c) {
+    int res;
+    if (a > b && a > c) res = a;
+    if (b > a && b > c) res = b;
+    if (c > b && c > a) res = c;
+    return res;
+}
+
+int main() {
+    int a, b, c;
+    cin >> a >> b >> c;
+    int res = get_max_3(a, b, c);
+    cout << res << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.15.2 inline-функции
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+inline int sum_ar_int(int* ar, size_t len) {
+    int res = 0;
+    for (int i = 0; i < len; i++) {
+        res += ar[i];
+    }
+    return res;
+}
+
+int main() {
+    int ar[10] = {};
+    int i = 0;
+    while (cin >> ar[i++]) {
+    };
+    size_t len = std::size(ar);
+    cout << sum_ar_int(ar, len) << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.15.3 inline-функции
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+inline void range(int* ar, size_t len, int start, int stop, int step) {
+    for (int i = 0; i < len; i++) {
+        ar[i] = start;
+        start += step;
+        if (start >= stop) break;
+    }
+}
+
+int main() {
+    int at[10] = {};
+    int start, stop, step;
+    cin >> start >> step >> stop;
+    range(at, 10, start, stop, step);
+    return 0;
+}*/
+
+/*#include <iostream>  //9.15.4 inline-функции
+
+enum { max_size = 20 };
+
+using ptr_func = bool (*)(int);
+
+bool check(int a);
+int sum_ar(const int *ar, size_t len_ar, ptr_func func);
+
+int main() {
+    int marks[max_size] = {0};
+    int x;
+    int i = 0;
+    while (std::cin >> x) {
+        if (i < max_size)
+            marks[i++] = x;
+        else
+            break;
+    }
+    ptr_func func = &check;
+    std::cout << sum_ar(marks, std::size(marks), func) << std::endl;
+    return 0;
+}
+
+bool check(int a) {
+    if (a % 2 == 0)
+        return true;
+    else
+        return false;
+}
+int sum_ar(const int *ar, size_t len_ar, ptr_func func) {
+    int res = 0;
+    for (int i = 0; i < len_ar; i++) {
+        if (func(ar[i])) res += ar[i];
+    }
+    return res;
+}*/
+
+/*#include <iostream>  //9.15.5 inline-функции
+
+enum { max_size = 20 };
+
+void reverse(short *arr, int len);
+
+int main() {
+    short digs[max_size];
+    int count = 0;
+    while (count < max_size && std::cin >> digs[count]) count++;
+
+    reverse(digs, count);
+    for (int i = 0; i < count; i++) std::cout << digs[i] << ' ';
+    return 0;
+}
+
+void reverse(short *arr, int len) {
+    int end = len - 1;
+    for (int start = 0; start < end; start++, end--) {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+    }
+}*/
+
+/*#include <cmath>  //9.16.1 Лямбда-выражения. Объявление и вызов
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    int a, b, c;
+    std::cin >> a >> b >> c;
+
+    auto sq_tr = [](int a, int b, int c) {
+        double p = (a + b + c) / 2.;
+        return sqrt(p * (p - a) * (p - b) * (p - c));
+    };
+    std::cout << std::fixed << std::setprecision(2) << sq_tr(a, b, c) << std::endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.16.2 Лямбда-выражения. Объявление и вызов
+
+int main() {
+    int num = 0;
+    using lyambda_type = int (*)(int a);
+    lyambda_type func_filter[3] = {};
+    func_filter[0] = [](int x) -> int { return x % 2 == 0; };
+    func_filter[1] = [](int x) -> int { return x < 0; };
+    func_filter[2] = [](int x) -> int { return x > 0; };
+
+    std::cin >> num;
+    std::cout << func_filter[1](num) << std::endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.16.3 Лямбда-выражения. Объявление и вызов
+
+enum { max_length_ar = 20 };
+using filter_func = bool (*)(short);
+
+void remove_elem(short* ar, int& len, filter_func filter) {
+    for (int i = 0; i < len;) {
+        if (filter(ar[i])) {
+            for (int j = i; j < len - 1; j++) {
+                ar[j] = ar[j + 1];
+            }
+            len--;
+        } else {
+            i++;
+        }
+    }
+}
+
+int main() {
+    short marks[max_length_ar] = {0};
+    int count = 0;
+    while (count < max_length_ar && std::cin >> marks[count]) count++;
+    remove_elem(marks, count, [](short a) -> bool { return a < 3; });
+    for (int i = 0; i < count; i++) {
+        std::cout << marks[i] << ' ';
+    }
+    return 0;
+}*/
+
+/*#include <iostream>  //9.16.4 Лямбда-выражения. Объявление и вызов
+
+enum { max_length_ar = 20 };
+using filter_func = bool (*)(int);
+
+int sum_elem(const int* ar, size_t len, filter_func filter) {
+    int res = 0;
+    for (int i = 0; i < len; i++) {
+        if (filter(ar[i])) {
+            res += ar[i];
+        }
+    }
+    return res;
+}
+
+int main(void) {
+    int marks[max_length_ar] = {0};
+    int count = 0;
+    while (count < max_length_ar && std::cin >> marks[count]) count++;
+
+    filter_func finc = [](int a) -> bool { return a % 2 == 0 && a % 3 == 0; };
+    std::cout << sum_elem(marks, count, finc) << std::endl;
+
+    return 0;
+}*/
+
+/*#include <iostream>  //9.16.5 Лямбда-выражения. Объявление и вызов
+
+enum { max_length_ar = 20 };
+using filter_func = bool (*)(int, int);
+
+int sum_elem(const int* ar, size_t len, filter_func filter) {
+    int res = 0;
+    for (int i = 0; i < len - 1; i++) {
+        if (filter(ar[i], ar[i + 1])) {
+            res += ar[i + 1];
+        }
+    }
+    return res;
+}
+
+int main() {
+    int marks[max_length_ar] = {0};
+    int count = 0;
+    while (count < max_length_ar && std::cin >> marks[count]) count++;
+    std::cout << sum_elem(marks, count, [](int a, int b) -> bool { return a % 2 == 0 && b % 3 == 0; }) << std::endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.17.1 Захват внешних значений в лямбда выражениях
+
+int main() {
+    int w, h;
+    std::cin >> w >> h;
+    auto sum_ab = [=]() { return w + h; };
+    std::cout << sum_ab() << std::endl;
+    return 0;
+}*/
+
+#include <iostream>  //9.17.2 Захват внешних значений в лямбда выражениях
+#include <string>
+
+int main() {
+    char str[100];
+    size_t len = sizeof(str);
+    auto gl = [=, &str]() {
+        std::string line;
+        getline(std::cin, line);
+
+        int i = 0;
+        for (; i < line.length() && i < len - 1; ++i) str[i] = line[i];
+        str[i] = '\0';
+    };
+    gl();
+    std::cout << str;
+    return 0;
 }
