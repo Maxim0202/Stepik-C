@@ -1460,8 +1460,8 @@ int main() {
     int marks[max_length_ar] = {0};
     int count = 0;
     while (count < max_length_ar && std::cin >> marks[count]) count++;
-    std::cout << sum_elem(marks, count, [](int a, int b) -> bool { return a % 2 == 0 && b % 3 == 0; }) << std::endl;
-    return 0;
+    std::cout << sum_elem(marks, count, [](int a, int b) -> bool { return a % 2 == 0 && b % 3 == 0; }) <<
+std::endl; return 0;
 }*/
 
 /*#include <iostream>  //9.17.1 Захват внешних значений в лямбда выражениях
@@ -1474,7 +1474,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  //9.17.2 Захват внешних значений в лямбда выражениях
+/*#include <iostream>  //9.17.2 Захват внешних значений в лямбда выражениях
 #include <string>
 
 int main() {
@@ -1490,5 +1490,204 @@ int main() {
     };
     gl();
     std::cout << str;
+    return 0;
+}*/
+
+/*#include <iostream>  //9.17.3 Захват внешних значений в лямбда выражениях
+
+enum { size_pole = 10 };
+
+int main(void) {
+    char pg[size_pole][size_pole] = {0};
+
+    auto is_v = [&](int x, int y) {
+        for (int i = -1; i <= 1; ++i)
+            for (int j = -1; j <= 1; ++j) {
+                int xx = x + i, yy = y + j;
+                if (xx < 0 || xx >= size_pole || yy < 0 || yy >= size_pole) continue;
+                if (pg[xx][yy] == '*') return 0;
+            }
+        return 1;
+    };
+
+    int mines = 0;
+    do {
+        int i = rand() % size_pole;
+        int j = rand() % size_pole;
+        if (is_v(i, j)) {
+            pg[i][j] = '*';
+            mines++;
+        }
+    } while (mines < 12);
+
+    for (int i = 0; i < size_pole; ++i) {
+        for (int j = 0; j < size_pole; ++j) printf("%c ", (pg[i][j] == 0) ? '#' : '*');
+        putchar('\n');
+    }
+
+    return 0;
+}*/
+
+/*#include <iostream>  //10.1.1 Структуры в С++, как обновленный тип данных
+
+struct volume {
+    int width;
+    int height;
+    int depth;
+    int get_volume() { return width * height * depth;};
+};
+
+int main() {
+    volume data;
+    std::cin >> data.width >> data.height >> data.depth;
+    std::cout << data.get_volume() << std::endl;
+    return 0;
+}*/
+
+/*#include <iomanip> //10.1.2 Структуры в С++, как обновленный тип данных
+#include <iostream>
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::fixed;
+using std::setprecision;
+using std::string;
+
+struct book {
+    string title;
+    string author;
+    int price;
+    int npages;
+    double price_per_page() { return (double)price / npages; };
+};
+
+int main() {
+    book lib[10];
+    int count = 0;
+    for (int i = 0; i < 10 && cin; i++) {
+        getline(cin, lib[i].title);
+        getline(cin, lib[i].author);
+        cin >> lib[i].price >> lib[i].npages;
+        cin.ignore();
+        count++;
+    }
+    for (int i = 0; i < count - 1; i++) {
+        cout << fixed << setprecision(2) << lib[i].price_per_page() << ' ';
+    }
+    return 0;
+}*/
+
+/*#include <cmath>  //10.1.3 Структуры в С++, как обновленный тип данных
+#include <iomanip>
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::fixed;
+using std::setprecision;
+
+struct vector4D {
+    double x;
+    double y;
+    double z;
+    double t;
+    void read_data(FILE* stream, char sep = ' ') { cin >> x >> sep >> y >> sep >> z >> sep >> t; };
+    double length() { return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(t, 2)); };
+};
+
+int main() {
+    vector4D v1;
+    vector4D v2;
+    v1.read_data(stdin, ';');
+    v2.read_data(stdin, ';');
+    cout << fixed << setprecision(3);
+    cout << v1.length() << ' ' << v2.length() << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //10.1.4 Структуры в С++, как обновленный тип данных
+
+struct tag_price {
+    char name[100];
+    unsigned int rubs;
+    unsigned char kops;
+    unsigned int foreign_key;
+};
+
+int main() {
+    tag_price pr = price_100;
+    std::cout << pr.name << ' ' << (int)pr.rubs << ' ' << (int)pr.kops << ' ' << (int)pr. foreign_key << std::endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //10.1.5 Структуры в С++, как обновленный тип данных
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+struct tag_time {
+    unsigned char hours;
+    unsigned char minutes;
+    unsigned char seconds;
+    char* get_time(char* str, size_t max_length) {
+        snprintf(str, max_length, "%02hhu:%02hhu:%02hhu", hours, minutes, seconds);
+        return str;
+    }
+    static tag_time sum_time(const tag_time& t1, const tag_time& t2) {
+        tag_time tm_res;
+        int all_seconds =
+            t1.seconds + t2.seconds + (t1.minutes + t2.minutes) * 60 + (t1.hours + t2.hours) * 3600;
+        tm_res.hours = all_seconds / 3600;
+        tm_res.minutes = (all_seconds % 3600) / 60;
+        tm_res.seconds = (all_seconds % 3600) % 60;
+        return tm_res;
+    }
+};
+
+int main() {
+    tag_time tm1, tm2, time_res;
+    int hour1, minute1, second1, hour2, minute2, second2;
+    char result[10]{};
+    cin >> hour1 >> minute1 >> second1 >> hour2 >> minute2 >> second2;
+    tm1.hours = hour1;
+    tm1.minutes = minute1;
+    tm1.seconds = second1;
+    tm2.hours = hour2;
+    tm2.minutes = minute2;
+    tm2.seconds = second2;
+    time_res = time_res.sum_time(tm1, tm2);
+    cout << time_res.get_time(result, 10) << endl;
+    return 0;
+}*/
+
+#include <iostream>  //10.1.6 Структуры в С++, как обновленный тип данных
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+enum { total_points = 100 };
+
+struct tag_point_3d {
+    int x, y, z;
+};
+
+int main() {
+    tag_point_3d points[total_points];
+    int x, y, z = 0;
+    int total = 0;
+    for (int i = 0; i < total_points && cin >> x >> y >> z; i++) {
+        points[i].x = x;
+        points[i].y = y;
+        points[i].z = z;
+        total++;
+    }
+    cout << points[0].x << ' ' << points[0].y << ' ' << points[0].z << endl;
     return 0;
 }
