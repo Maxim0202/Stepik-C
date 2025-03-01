@@ -1666,7 +1666,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  //10.1.6 Структуры в С++, как обновленный тип данных
+/*#include <iostream>  //10.1.6 Структуры в С++, как обновленный тип данных
 
 using std::cin;
 using std::cout;
@@ -1689,5 +1689,223 @@ int main() {
         total++;
     }
     cout << points[0].x << ' ' << points[0].y << ' ' << points[0].z << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //10.2.1 Структуры. Режимы доступа. Сеттеры и геттеры
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+struct thing {
+   private:
+    unsigned int id;
+    double price;
+    double weight;
+
+   public:
+    unsigned get_id() { return id; }
+    void get_data(double& price, double& weight) {
+        price = this->price;
+        weight = this->weight;
+    }
+    void set_data(unsigned id, double price, double weight) {
+        this->price = price;
+        this->weight = weight;
+        this->id = id;
+    }
+};*/
+
+/*#include <iostream>  //10.2.2 Структуры. Режимы доступа. Сеттеры и геттеры
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+struct point {
+   private:
+    int x, y;
+
+   public:
+    int get_x() { return x; }
+    int get_y() { return y; }
+    void get_coords(int& x, int& y) {
+        x = this->x;
+        y = this->y;
+    }
+    void set_coords(int x, int y) {
+        this->x = x;
+        this->y = y;
+    }
+    static point sum(point& p1, point& p2) {
+        point res;
+        res.x = p1.get_x() + p2.get_x();
+        res.y = p1.get_y() + p2.get_y();
+        return res;
+    }
+};
+
+int main() {
+    point first;
+    point second;
+    point result;
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    first.set_coords(a, b);
+    second.set_coords(c, d);
+    result = point::sum(first, second);
+    cout << result.get_x() << ' ' << result.get_y() << endl;
+    return 0;
+}*/
+
+/*#include <iostream>  //10.2.3 Структуры. Режимы доступа. Сеттеры и геттеры
+
+enum data_type { data_none = 1, data_int, data_double };
+
+struct point {
+   private:
+    enum { max_coords = 3 };
+
+    union {
+        int v_int;
+        double v_double;
+    } coords[max_coords];
+
+    data_type type = data_none;
+
+   public:
+    void set_coords(int x, int y, int z) {
+        this->type = data_int;
+        this->coords[0].v_int = x;
+        this->coords[1].v_int = y;
+        this->coords[2].v_int = z;
+    }
+    void set_coords(double x, double y, double z) {
+        this->type = data_double;
+        this->coords[0].v_double = x;
+        this->coords[1].v_double = y;
+        this->coords[2].v_double = z;
+    }
+    data_type get_type() { return type; }
+    int get_size() { return max_coords; }
+    bool get_coords(int& x, int& y, int& z) {
+        bool flag_int = false;
+        if (type == data_int) {
+            x = this->coords[0].v_int;
+            y = this->coords[1].v_int;
+            z = this->coords[2].v_int;
+            flag_int = true;
+        }
+        return flag_int;
+    }
+    bool get_coords(double& x, double& y, double& z) {
+        bool flag_double = false;
+        if (type == data_double) {
+            x = this->coords[0].v_double;
+            y = this->coords[1].v_double;
+            z = this->coords[2].v_double;
+            flag_double = true;
+        }
+        return flag_double;
+    }
+};
+
+int main() {
+    point pt;
+    pt.set_coords(5, -8, 34);
+    if (pt.get_type() == data_int) {
+        int x, y, z;
+        if (pt.get_coords(x, y, z)) {
+            std::cout << x << ' ' << y << ' ' << z << std::endl;
+        }
+    }
+    if (pt.get_type() == data_double) {
+        double x, y, z;
+        if (pt.get_coords(x, y, z)) {
+            std::cout << x << ' ' << y << ' ' << z << std::endl;
+        }
+    }
+    return 0;
+}*/
+
+/*#include <iostream>  //10.2.4 Структуры. Режимы доступа. Сеттеры и геттеры
+#include <random>
+
+enum { total_points = 128 };
+
+struct tag_point {
+    float x, y;
+};
+
+int main() {
+    tag_point ps[total_points];
+    std::mt19937 rng(std::random_device{}());
+    std::uniform_real_distribution<float> dist(-100.f, 100.f);
+    for (int i = 0; i < total_points; i++) {
+        ps[i].x = dist(rng);
+        ps[i].y = dist(rng);
+    }
+    double mean_x = 0.;
+    double mean_y = 0.;
+    for (int i = 0; i < total_points; i++) {
+        mean_x += ps[i].x;
+        mean_y += ps[i].y;
+    }
+    mean_x = mean_x / total_points;
+    mean_y = mean_y / total_points;
+    return 0;
+}*/
+
+/*#include <iostream>  //10.3.1 Структуры. Конструкторы и деструкторы
+
+struct money {
+   private:
+    int total_money;
+
+   public:
+    money() { total_money = 0; }
+    money(int volume) { this->total_money = volume; }
+    int get_money() { return total_money; }
+    void set_money(int volume) { this->total_money = volume; }
+};
+
+int main() {
+    money rubs(100);
+    std::cout << rubs.get_money() << std::endl;
+    return 0;
+}*/
+
+#include <iostream>  //10.3.2 Структуры. Конструкторы и деструкторы
+
+struct triangle {
+   private:
+    int a, b, c;
+
+   public:
+    triangle() { a = 0, b = 0, c = 0; }
+    triangle(int a, int b, int c) { this->a = a, this->b = b, this->c = c; }
+    bool is_triangle() {
+        bool flag = false;
+        if (a + b > c && a + c > b && b + c > a) {
+            flag = true;
+        }
+        return flag;
+    }
+    void get_lengths(int& a, int& b, int& c) {
+        a = this->a;
+        b = this->b;
+        c = this->c;
+    }
+    void set_lengths(int a, int b, int c) {
+        this->a = a;
+        this->b = b;
+        this->c = c;
+    }
+};
+
+int main() {
+    triangle tr_1;
+    triangle tr_2(7, 4, 8);
     return 0;
 }
