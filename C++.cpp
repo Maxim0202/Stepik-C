@@ -1619,8 +1619,8 @@ struct tag_price {
 
 int main() {
     tag_price pr = price_100;
-    std::cout << pr.name << ' ' << (int)pr.rubs << ' ' << (int)pr.kops << ' ' << (int)pr. foreign_key << std::endl;
-    return 0;
+    std::cout << pr.name << ' ' << (int)pr.rubs << ' ' << (int)pr.kops << ' ' << (int)pr. foreign_key <<
+std::endl; return 0;
 }*/
 
 /*#include <iostream>  //10.1.5 Структуры в С++, как обновленный тип данных
@@ -1876,7 +1876,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  //10.3.2 Структуры. Конструкторы и деструкторы
+/*#include <iostream>  //10.3.2 Структуры. Конструкторы и деструкторы
 
 struct triangle {
    private:
@@ -1907,5 +1907,235 @@ struct triangle {
 int main() {
     triangle tr_1;
     triangle tr_2(7, 4, 8);
+    return 0;
+}*/
+
+/*#include <cmath>  //10.3.3 Структуры. Конструкторы и деструкторы
+#include <iostream>
+
+struct point3D {
+   private:
+    int x, y, z;
+
+   public:
+    point3D() { x = 0, y = 0, z = 0; }
+    point3D(int x, int y, int z) { this->x = x, this->y = y, this->z = z; }
+    void get_coords(int& x, int& y, int& z) {
+        x = this->x;
+        y = this->y;
+        z = this->z;
+    }
+};
+
+struct line3D {
+   private:
+    point3D start_pt;
+    point3D end_pt;
+
+   public:
+    line3D(point3D p1, point3D p2) { this->start_pt = p1, this->end_pt = p2; }
+    ~line3D() {
+        int x0, y0, z0, x1, y1, z1;
+        start_pt.get_coords(x0, y0, z0);
+        end_pt.get_coords(x1, y1, z1);
+        std::cout << "Deleted line: (" << x0 << ", " << y0 << ", " << z0 << ')' << ' ' << '(' << x1 << ", "
+                  << y1 << ", " << z1 << ')' << std::endl;
+    }
+
+    double length() {
+        double res = 0.0;
+        int x0, y0, z0, x1, y1, z1;
+        start_pt.get_coords(x0, y0, z0);
+        end_pt.get_coords(x1, y1, z1);
+        res = (double)sqrt(pow((x0 - x1), 2) + pow((y0 - y1), 2) + pow((z0 - z1), 2));
+        return res;
+    }
+
+    const point3D& get_coords_start() {
+        return start_pt;
+    }
+
+    const point3D& get_coords_end() {
+        return end_pt;
+    }
+};
+
+int main() {
+    point3D start_pt(-5, 100, 45);
+    point3D end_pt(0, 32, -42);
+    line3D line(start_pt, end_pt);
+    return 0;
+}*/
+
+/*#include <iomanip>  //10.3.4 Структуры. Конструкторы и деструкторы
+#include <iostream>
+#include <string>
+
+using std::string;
+using std::to_string;
+
+struct dtime {
+   private:
+    unsigned char hours;
+    unsigned char minutes;
+    unsigned char seconds;
+
+   public:
+    dtime(unsigned char h = 0, unsigned char m = 0, unsigned char s = 0) {
+        this->hours = h;
+        this->minutes = m;
+        this->seconds = s;
+    }
+
+    string get_time() {
+        string time;
+        char c = ':';
+        time.append(to_string(this->hours));
+        if (time.size() < 2) {
+            time.insert(time.begin(), 2 - time.size(), '0');
+        }
+        time.append(1, c);
+        time.append(to_string(this->minutes));
+        if (time.size() < 5) {
+            time.insert(time.begin() + 3, 5 - time.size(), '0');
+        }
+        time.append(1, c);
+        time.append(to_string(this->seconds));
+        if (time.size() < 8) {
+            time.insert(time.begin() + 6, 8 - time.size(), '0');
+        }
+        return time;
+    }
+
+    void set_time(unsigned char hours, unsigned char minutes, unsigned char seconds) {
+        this->hours = hours;
+        this->minutes = minutes;
+        this->seconds = seconds;
+    }
+
+    static dtime sum_time(const dtime& t1, const dtime& t2) {
+        unsigned char h1, m1, s1, h2, m2, s2, res_h, res_m, res_s;
+        h1 = t1.hours;
+        m1 = t1.minutes;
+        s1 = t1.seconds;
+        h2 = t2.hours;
+        m2 = t2.minutes;
+        s2 = t2.seconds;
+
+        int all_seconds = s1 + s2 + (m1 + m2) * 60 + (h1 + h2) * 3600;
+        res_h = all_seconds / 3600;
+        res_m = (all_seconds % 3600) / 60;
+        res_s = (all_seconds % 3600) % 60;
+        dtime res(res_h, res_m, res_s);
+        return res;
+    }
+};
+
+int main() {
+    dtime tm1;
+    dtime tm2;
+    dtime time_res;
+    int h1, m1, s1, h2, m2, s2;
+    std::cin >> h1 >> m1 >> s1 >> h2 >> m2 >> s2;
+    tm1.set_time(h1, m1, s1);
+    tm2.set_time(h2, m2, s2);
+    time_res = time_res.sum_time(tm1, tm2);
+    std::cout << time_res.get_time();
+    return 0;
+}*/
+
+/*#include <cstring>  //10.4.1 Операторы new / delete и new [] / delete []
+#include <iostream>
+
+struct thing {
+    private:
+    static unsigned long next_id;
+
+    public:
+    unsigned long id;
+    char name[50];
+    unsigned int price;
+    double weight;
+
+    thing(const char* n = "", unsigned int p = 0, double w = 0.0) {
+        this->id = next_id++;
+        strcpy(name, n);
+        price = p;
+        weight = w;
+    }
+    ~thing() {
+
+    }
+};
+
+unsigned long thing::next_id = 1;
+
+int main() {
+    char in_name[50]{};
+    unsigned int in_price;
+    double in_weight;
+    std::cin >> in_name >> in_price >> in_weight;
+    thing* ptr_th = new thing(in_name, in_price, in_weight);
+    std::cout << ptr_th->price << std::endl;
+    delete ptr_th;
+    return 0;
+}*/
+
+/*#include <iostream>  //10.4.2 Операторы new / delete и new [] / delete []
+
+struct rectangle {
+    private:
+    int x0, y0, x1, y1;
+
+    public:
+       rectangle(int a = 0, int b = 0, int c = 0, int d = 0) {
+        this->x0 = a;
+        this->y0 = b;
+        this->x1 = c;
+        this->y1 = d;
+       }
+    bool is_in_rect(int x, int y) {
+        bool flag = false;
+        if ((x >= this->x0 && x <= this->x1) && (y >= this->y0 && y <= this->y1)) flag = true;
+        return flag;
+    }
+    void set_coords(int x0, int y0, int x1, int y1) {
+        this->x0 = x0;
+        this->y0 = y0;
+        this->x1 = x1;
+        this->y1 = y1;
+    }
+    void get_coords(int& x0, int& y0, int& x1, int& y1) {
+        x0 = this->x0;
+        y0 = this->y0;
+        x1 = this->x1;
+        y1 = this->y1;
+    }
+};
+
+int main() {
+    int p_x, p_y;
+    rectangle* ptr = new rectangle(-5, 4, 8, 32);
+    std::cin >> p_x >> p_y;
+    if(ptr->is_in_rect(p_x, p_y)) {
+        std::cout << "yes" << std::endl;
+    } else {
+        std::cout << "no" << std::endl;
+    }
+    delete ptr;
+    return 0;
+}*/
+
+#include <iostream>  //10.4.3 Операторы new / delete и new [] / delete []
+
+int main() {
+    short* ptr_ar = new short[15];
+    for (int i = 0; i < 15; i++) {
+        if (i != 4)
+            ptr_ar[i] = -1;
+        else
+            ptr_ar[i] = 100;
+    }
+    // delete [] ptr_ar;
     return 0;
 }
