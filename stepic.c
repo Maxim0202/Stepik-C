@@ -3847,7 +3847,7 @@ void encoding(char *str, char *res, char *symbols, const char *morze[]) {
     }
 }*/
 
-#include <stdio.h>  //6.7.5 Рекурсивные функции
+/*#include <stdio.h>  //6.7.5 Рекурсивные функции
 #include <stdlib.h>
 #include <string.h>
 
@@ -3889,7 +3889,7 @@ void encoding(char *str, char *res, char *symbols, const char *morze[]) {
         }
         token = strtok(NULL, " ");
     }
-}
+}*/
 
 /*#include <stdarg.h>  //6.8.1 Функции с произвольным числом параметров
 #include <stdio.h>
@@ -5161,3 +5161,253 @@ int main() {
     }
     return 0;
 }*/
+
+#include <stdio.h>
+#include <ncurses.h>
+#include <unistd.h>
+
+#define HEIHGT 25
+#define WIDTH 80
+
+void draw_field(char field[HEIHGT][WIDTH], int* x, int* y, int r_l1, int r_l0, int r_l2, int r_r1, int r_r0,
+                int r_r2, int l, int r);
+void ball_move(int* x, int* y, int dir);
+void ball_reflection_board(int x, int y, int* dir);
+void racket_move(int* r_l1, int* r_l0, int* r_l2, int* r_r1, int* r_r0, int* r_r2);
+void ball_reflection_racket(int r_l1, int r_l0, int r_l2, int r_r1, int r_r0, int r_r2, int x, int y,
+                            int* dir);
+int change_score(int* l, int* r, int x);
+
+int main() {
+    int ball_x = WIDTH / 2;
+    int ball_y = HEIHGT / 2;
+    int raket_left_1 = HEIHGT / 2 - 1;
+    int raket_left_0 = HEIHGT / 2;
+    int raket_left_2 = HEIHGT / 2 + 1;
+    int raket_right_1 = HEIHGT / 2 - 1;
+    int raket_right_0 = HEIHGT / 2;
+    int raket_right_2 = HEIHGT / 2 + 1;
+    int ball_direction = 3;
+    int left_score = 0;
+    int right_score = 0;
+    char pole[HEIHGT][WIDTH];
+
+    initscr();
+    noecho();
+    keypad(stdscr, TRUE);
+    curs_set(0);
+
+    while (left_score != 3 && right_score != 3) {
+        draw_field(pole, &ball_x, &ball_y, raket_left_1, raket_left_0, raket_left_2, raket_right_1,
+                   raket_right_0, raket_right_2, left_score, right_score);
+        ball_move(&ball_x, &ball_y, ball_direction);
+        racket_move(&raket_left_1, &raket_left_0, &raket_left_2, &raket_right_1, &raket_right_0,
+                    &raket_right_2);
+        ball_reflection_racket(raket_left_1, raket_left_0, raket_left_2, raket_right_1, raket_right_0,
+                               raket_right_2, ball_x, ball_y, &ball_direction);
+        if (change_score(&left_score, &right_score, ball_x) == 1) {
+            ball_x = WIDTH / 2;
+            ball_y = HEIHGT / 2;
+            ball_direction = 3;
+            continue;
+        }
+        ball_reflection_board(ball_x, ball_y, &ball_direction);
+        usleep(80000);
+    }
+
+    endwin();
+    if (left_score == 3) {
+        printf("WIN LEFT PLAYER\n");
+    } else {
+        printf("WIN RIGHT PLAYER\n");
+    }
+    return 0;
+}
+
+void draw_field(char field[HEIHGT][WIDTH], int* x, int* y, int r_l1, int r_l0, int r_l2, int r_r1, int r_r0,
+                int r_r2, int l, int r) {
+    int i, j;
+    clear();
+    mvprintw(27, 0, "########### score_left: %d ########### score_right: %d ##########\n", l, r);
+    mvprintw(28, 0, "########### PRESS A or Z for left player ########### PRESS K or M for right player ##########\n");
+    /*for (int i = 0; i < HEIHGT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
+            if (i == *y && j == *x) {
+                field[i][j] = 'O';
+            } else {
+                field[i][j] = ' ';
+            }
+        }
+    }
+
+    field[r_l1][0] = '|';
+    field[r_l0][0] = '|';
+    field[r_l2][0] = '|';
+    field[r_r1][79] = '|';
+    field[r_r0][79] = '|';
+    field[r_r2][79] = '|';
+
+    for (j = 0; j < WIDTH + 2; j++) {
+        printf("*");
+    }
+    printf("\n");
+    for (i = 0; i < HEIHGT; i++) {
+        printf("*");
+        for (j = 0; j < WIDTH; j++) {
+            if (j == WIDTH / 2 && field[i][j] != 'O') {
+                printf("*");
+            } else if (field[i][j] == ' ') {
+                printf(" ");
+            } else {
+                printf("%c", field[i][j]);
+            }
+        }
+        printf("*\n");
+    }
+    for (j = 0; j < WIDTH + 2; j++) {
+        printf("*");
+    }
+    printf("\n");*/
+    for (int i = 0; i < HEIHGT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
+            if (i == *y && j == *x) {
+                mvaddch(i + 1, j + 1, 'O');
+            } else if (i == r_l1 && j == 0) {
+                mvaddch(i + 1, j + 1, '|');
+            } else if (i == r_l0 && j == 0) {
+                mvaddch(i + 1, j + 1, '|');
+            } else if (i == r_l2 && j == 0) {
+                mvaddch(i + 1, j + 1, '|');
+            } else if (i == r_r1 && j == 79) {
+                mvaddch(i + 1, j + 1, '|');
+            } else if (i == r_r0 && j == 79) {
+                mvaddch(i + 1, j + 1, '|');
+            } else if (i == r_r2 && j == 79) {
+                mvaddch(i + 1, j + 1, '|');
+            } else if (j == WIDTH / 2 && i != 0 && i != HEIHGT - 1) {
+                mvaddch(i + 1, j + 1, '*');
+            } else {
+                mvaddch(i + 1, j + 1, ' ');
+            }
+        }
+    }
+    for (j = 0; j <= WIDTH + 1; j++) {
+        mvaddch(0, j, '*');
+        mvaddch(HEIHGT + 1, j, '*');
+    }
+    for (i = 0; i <= HEIHGT + 1; i++) {
+        mvaddch(i, 0, '*');
+        mvaddch(i, WIDTH + 1, '*');
+    }
+    refresh();
+}
+
+void ball_move(int* x, int* y, int dir) {
+    switch (dir) {
+        case 1:
+        if ((*x > 0) && (*y > 0)) {
+            (*x)--;
+            (*y)--;
+        }
+        break;
+        case 2:
+        if ((*x > 0) && (*y < HEIHGT - 1)) {
+            (*x)--;
+            (*y)++;
+        }
+            break;
+        case 3:
+        if ((*x < WIDTH - 1) && (*y < HEIHGT - 1)) { 
+            (*x)++;
+            (*y)++;
+        }
+            break;
+        case 4:
+        if ((*x < WIDTH - 1) && (*y > 0)) {
+            (*x)++;
+            (*y)--;
+        }
+            break;
+    }
+}
+
+void racket_move(int* r_l1, int* r_l0, int* r_l2, int* r_r1, int* r_r0, int* r_r2) {
+    nodelay(stdscr, TRUE);
+    char key;
+    int ch = getch();
+    if (ch != ERR) 
+        key = ch;
+    //scanf("%c", &key);
+    if (key == 'a') {
+        if (*r_l1 > 0) {
+            (*r_l1)--;
+            (*r_l0)--;
+            (*r_l2)--;
+        } else {
+            return;
+        }
+    } else if (key == 'z') {
+        if (*r_l2 < HEIHGT - 1) {
+            (*r_l1)++;
+            (*r_l0)++;
+            (*r_l2)++;
+        } else {
+            return;
+        }
+    }
+
+    if (key == 'k') {
+        if (*r_r1 > 0) {
+            (*r_r1)--;
+            (*r_r0)--;
+            (*r_r2)--;
+        } else {
+            return;
+        }
+    } else if (key == 'm') {
+        if (*r_r2 < HEIHGT - 1) {
+            (*r_r1)++;
+            (*r_r0)++;
+            (*r_r2)++;
+        } else {
+            return;
+        }
+    }
+}
+
+void ball_reflection_board(int x, int y, int* dir) {
+    if (*dir == 1 && y == 0) {
+        *dir = 2;
+    } else if (*dir == 2 && y == HEIHGT - 1) {
+        *dir = 1;
+    } else if (*dir == 3 && y == HEIHGT - 1) {
+        *dir = 4;
+    } else if (*dir == 4 && y == 0) {
+        *dir = 3;
+    }
+}
+
+void ball_reflection_racket(int r_l1, int r_l0, int r_l2, int r_r1, int r_r0, int r_r2, int x, int y,
+                            int* dir) {
+    if (((y == r_l1 && x == 1) || (y == r_l0 && x == 1) || (y == r_l2 && x == 1)) && *dir == 2) {
+        *dir = 3;
+    } else if (((y == r_l1 && x == 1) || (y == r_l0 && x == 1) || (y == r_l2 && x == 1)) && *dir == 1) {
+        *dir = 4;
+    } else if (((y == r_r1 && x == 78) || (y == r_r0 && x == 78) || (y == r_r2 && x == 78)) && *dir == 4) {
+        *dir = 1;
+    } else if (((y == r_r1 && x == 78) || (y == r_r0 && x == 78) || (y == r_r2 && x == 78)) && *dir == 3) {
+        *dir = 2;
+    }
+}
+
+int change_score(int* l, int* r, int x) {
+    int flag = 0;
+    if (x == 79) {
+        (*l)++;
+        flag = 1;
+    } else if (x == 0) {
+        (*r)++;
+        flag = 1;
+    }
+    return flag;
+}
