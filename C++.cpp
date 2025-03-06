@@ -2126,7 +2126,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  //10.4.3 Операторы new / delete и new [] / delete []
+/*#include <iostream>  //10.4.3 Операторы new / delete и new [] / delete []
 
 int main() {
     short* ptr_ar = new short[15];
@@ -2138,4 +2138,65 @@ int main() {
     }
     // delete [] ptr_ar;
     return 0;
+}*/
+
+/*#include <iostream>  //10.5.1 Особенности работы new и delete
+
+
+struct complex {
+    double re, im;
+};
+
+int main() {
+    complex* vc = new complex[7]{};
+	delete [] vc;
+    return 0;
+}*/
+
+/*#include <iostream>  //10.5.2 Особенности работы new и delete
+
+struct box {
+    unsigned short a, b, c;
+
+    box() {
+        std::cout << "Empty box" << std::endl;
+    }
+
+    box(unsigned short a, unsigned short b, unsigned short c) {
+        this->a = a;
+        this->b = b;
+        this->c = c;
+        std::cout << "Box: " << a << ", " << b << ", " << c << std::endl;
+    }
+};
+
+int main() {
+    box* ar_box = new box[5]{{1, 2, 3}, {6, 2, 1}, {0, 0, 0}, {11, 13, 19}, {23, 5, 7}};
+    delete[] ar_box;
+    return 0;
+}*/
+
+/*#include <iostream>  //10.5.3 Особенности работы new и delete
+
+int main() {
+    long* ar_long = new long[1000]{};
+    ar_long[4] = -7;
+    delete[] ar_long;
+    return 0;
+}*/
+
+#include <iostream>  ////10.5.4 Особенности работы new и delete
+
+struct vector {
+    int x, y, z;
+
+    ~vector() { std::cout << "Deleted vector: " << x << ", " << y << ", " << z << std::endl; }
+};
+
+int main() {
+    int a, b, c;
+    std::cin >> a >> b >> c;
+    vector* one = new vector{a, b, c};
+    delete(one);
+	return 0;
 }
