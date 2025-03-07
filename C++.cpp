@@ -2185,7 +2185,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  ////10.5.4 Особенности работы new и delete
+/*#include <iostream>  ////10.5.4 Особенности работы new и delete
 
 struct vector {
     int x, y, z;
@@ -2199,4 +2199,32 @@ int main() {
     vector* one = new vector{a, b, c};
     delete(one);
 	return 0;
+}*/
+
+/*#include <iostream>  //10.6.1 Smart-указатели типа unique_ptr
+#include <memory>
+
+using namespace std;
+
+int main() {
+    int x;
+    std::cin >> x;
+    unique_ptr <int> p_int {new int(x)};
+    cout << *p_int << endl;
+    return 0;
+}*/
+
+#include <iostream>  //10.6.2 Smart-указатели типа unique_ptr
+#include <memory>
+
+using namespace std;
+
+struct thing {
+    unsigned long uid;
+    unsigned width, height, depth;
+};
+
+int main() {
+    unique_ptr<thing> p_th{new thing{1, 10, 43, 108}};
+    return 0;
 }
