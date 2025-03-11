@@ -2214,7 +2214,7 @@ int main() {
     return 0;
 }*/
 
-#include <iostream>  //10.6.2 Smart-указатели типа unique_ptr
+/*#include <iostream>  //10.6.2 Smart-указатели типа unique_ptr
 #include <memory>
 
 using namespace std;
@@ -2226,5 +2226,46 @@ struct thing {
 
 int main() {
     unique_ptr<thing> p_th{new thing{1, 10, 43, 108}};
+    return 0;
+}*/
+
+/*#include <iostream>  //10.7.1 Smart-указатели типа shared_ptr
+#include <memory>
+
+int main() {
+    int x;
+    std::cin >> x;
+    std::shared_ptr<short> p_val{std::make_shared<short>(x)};
+    size_t size = sizeof(short);
+    const unsigned char* bytePtr = reinterpret_cast<const unsigned char*>(p_val.get());
+    for (size_t i = 0; i < size; i++) {
+        std::cout << static_cast<unsigned int>(bytePtr[i]) << " ";
+    }
+    return 0;
+}*/
+
+#include <iostream>  //10.7.2 Smart-указатели типа shared_ptr
+#include <memory>
+
+enum { max_size_ar = 10 };
+
+using shared_ari_ptr = std::shared_ptr<int[]>;
+
+int sum_ar(const shared_ari_ptr& ar, size_t len) {
+    int res = 0;
+    for (int i = 0; i < len; i++) {
+        res += ar[i];
+    }
+    return res;
+}
+
+int main() {
+    shared_ari_ptr ar{new int[max_size_ar]{0}};
+    unsigned count = 0;
+    int x = 0;
+    while (count < max_size_ar && std::cin >> x) {
+        ar[count++] = x;
+    }
+    std::cout << sum_ar(ar, count);
     return 0;
 }
